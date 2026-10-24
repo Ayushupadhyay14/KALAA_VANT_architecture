@@ -1,0 +1,199 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: var(--font-serif), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-sans), "Plus Jakarta Sans", system-ui, sans-serif;
+
+  --color-stone-bg: #F5F3EF;
+  --color-stone-surface: #EAE6DF;
+  --color-stone-card: #E3DFD7;
+  --color-charcoal: #141414;
+  --color-charcoal-muted: #595856;
+  --color-accent-stone: #B8A99A;
+  --color-accent-bronze: #A08975;
+  --color-terracotta: #B9664E;
+}
+
+:root {
+  --bg-primary: #F5F3EF;
+  --text-primary: #141414;
+  --text-muted: #666360;
+  --border-subtle: rgba(20, 20, 20, 0.1);
+  --accent-stone: #B8A99A;
+}
+
+html {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: auto !important;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  cursor: default;
+}
+
+/* Standard Natural Browser Cursors */
+button,
+[role="button"],
+select,
+summary,
+a {
+  cursor: pointer;
+}
+
+input,
+textarea {
+  cursor: text;
+}
+
+/* Refined Typography Helpers */
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+/* Lenis Recommended CSS */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Custom Scrollbar for Editorial Feel */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F5F3EF;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C4BFB6;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9E988D;
+}
+
+/* Selection */
+::selection {
+  background: #141414;
+  color: #F5F3EF;
+}
+
+/* Ken Burns Slow Zoom Keyframe */
+@keyframes kenburns {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-ken-burns {
+  animation: kenburns 26s cubic-bezier(0.25, 1, 0.5, 1) infinite alternate;
+}
+
+/* Subtle architectural grain overlay */
+.grain-overlay {
+  background-image: radial-gradient(rgba(20, 20, 20, 0.08) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Mask Reveal Utilities */
+.clip-reveal-bottom {
+  clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.clip-reveal-bottom.revealed {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+/* Infinite Automatic Photo Scroll Animation */
+@keyframes autoScrollInfinite {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.auto-scroll-track {
+  display: flex;
+  width: max-content;
+  animation: autoScrollInfinite 45s linear infinite;
+  will-change: transform;
+}
+
+.auto-scroll-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes autoScrollSlowPan {
+  0% {
+    transform: scale(1.04) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(1.08) translate3d(-3%, -1%, 0);
+  }
+  100% {
+    transform: scale(1.04) translate3d(0, 0, 0);
+  }
+}
+
+.animate-photo-pan {
+  animation: autoScrollSlowPan 20s ease-in-out infinite alternate;
+}
+
+/* Accessibility: Prefers Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .auto-scroll-track {
+    animation: none !important;
+    overflow-x: auto !important;
+  }
+}
