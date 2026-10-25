@@ -51,12 +51,12 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
   };
 
   return (
-    <article className="min-h-screen bg-[#F5F3EF] text-[#141414] select-text">
+    <article className="min-h-screen bg-ivory text-charcoal select-text">
       {/* Back to Portfolio Floating Bar */}
       <div className="fixed top-24 left-6 md:left-12 z-30">
         <Link
           href="/#projects"
-          className="inline-flex items-center gap-2 px-4 py-2 bg-[#F5F3EF]/90 backdrop-blur-md border border-[#141414]/15 text-[#141414] text-xs font-mono uppercase tracking-widest hover:bg-[#141414] hover:text-[#F5F3EF] transition-all shadow-md"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-ivory/90 backdrop-blur-md border border-charcoal/15 text-charcoal text-xs font-mono uppercase tracking-widest hover:bg-charcoal hover:text-ivory transition-all shadow-md"
           data-cursor="link"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
@@ -65,7 +65,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
       </div>
 
       {/* Full-Bleed Parallax Hero Image */}
-      <section className="relative w-full h-[75vh] md:h-[90vh] overflow-hidden bg-[#141414]">
+      <section className="relative w-full h-[75vh] md:h-[90vh] overflow-hidden bg-charcoal">
         <motion.div
           initial={{ scale: 1.1, opacity: 0.8 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -82,17 +82,17 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
             sizes="100vw"
           />
         </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-[#141414]/30 to-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/30 to-black/40" />
 
         {/* Hero Overlay Content */}
-        <div className="absolute bottom-10 left-6 md:left-16 right-6 md:right-16 max-w-7xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6 text-[#F5F3EF]">
+        <div className="absolute bottom-10 left-6 md:left-16 right-6 md:right-16 max-w-7xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6 text-ivory">
           <div>
-            <div className="flex items-center gap-3 text-xs font-mono tracking-[0.25em] text-[#B8A99A] uppercase mb-3">
+            <div className="flex items-center gap-3 text-xs font-mono tracking-[0.25em] text-gold uppercase mb-3">
               <span>{project.typology}</span>
               <span>•</span>
               <span>{project.year}</span>
             </div>
-            <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light tracking-tight text-[#F5F3EF]">
+            <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light tracking-tight text-ivory">
               {project.title}
             </h1>
             <p className="font-serif text-lg md:text-2xl text-[#C4BFB6] mt-2 italic">
@@ -101,7 +101,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
           </div>
 
           <div className="text-right hidden sm:block">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#B8A99A] block">
+            <span className="text-xs font-mono uppercase tracking-widest text-gold block">
               Site Coordinates
             </span>
             <span className="text-sm font-sans text-[#E0DCD3]">{project.location}</span>
@@ -110,41 +110,41 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
       </section>
 
       {/* Project Metadata Matrix */}
-      <section className="w-full border-b border-[#141414]/15 bg-[#EBE7DF] py-10 px-6 md:px-16">
+      <section className="w-full border-b border-charcoal/15 bg-ivory-deep py-10 px-6 md:px-16">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-6 text-xs">
           <div>
             <span className="font-mono text-[10px] uppercase tracking-widest text-[#8C7D70] block mb-1">
               Location
             </span>
-            <p className="font-sans font-medium text-[#141414]">{project.location}</p>
+            <p className="font-sans font-medium text-charcoal">{project.location}</p>
           </div>
 
           <div>
             <span className="font-mono text-[10px] uppercase tracking-widest text-[#8C7D70] block mb-1">
               Built Area
             </span>
-            <p className="font-sans font-medium text-[#141414]">{project.area}</p>
+            <p className="font-sans font-medium text-charcoal">{project.area}</p>
           </div>
 
           <div>
             <span className="font-mono text-[10px] uppercase tracking-widest text-[#8C7D70] block mb-1">
               Year of Completion
             </span>
-            <p className="font-sans font-medium text-[#141414]">{project.year}</p>
+            <p className="font-sans font-medium text-charcoal">{project.year}</p>
           </div>
 
           <div>
             <span className="font-mono text-[10px] uppercase tracking-widest text-[#8C7D70] block mb-1">
               Client Typology
             </span>
-            <p className="font-sans font-medium text-[#141414]">{project.client}</p>
+            <p className="font-sans font-medium text-charcoal">{project.client}</p>
           </div>
 
           <div className="col-span-2 md:col-span-1">
             <span className="font-mono text-[10px] uppercase tracking-widest text-[#8C7D70] block mb-1">
               Studio Scope
             </span>
-            <p className="font-sans font-medium text-[#141414]">{project.role}</p>
+            <p className="font-sans font-medium text-charcoal">{project.role}</p>
           </div>
         </div>
       </section>
@@ -156,10 +156,10 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
             <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#A08975] block mb-3">
               // CONCEPT & GENESIS
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-[#141414] leading-tight">
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-charcoal leading-tight">
               {project.tagline}
             </h2>
-            <div className="mt-8 p-6 bg-[#EBE7DF]/60 border-l-2 border-[#141414] italic font-serif text-lg text-[#141414] leading-relaxed">
+            <div className="mt-8 p-6 bg-ivory-deep/60 border-l-2 border-charcoal italic font-serif text-lg text-charcoal leading-relaxed">
               &quot;{project.quote.text}&quot;
               <span className="block not-italic font-sans text-xs text-[#8C7D70] mt-3 font-normal">
                 — {project.quote.author}
@@ -168,15 +168,15 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
           </div>
 
           <div className="lg:col-span-7 space-y-6 text-sm md:text-base font-sans text-[#595856] leading-relaxed">
-            <p className="text-lg md:text-xl font-serif text-[#141414] font-normal leading-relaxed">
+            <p className="text-lg md:text-xl font-serif text-charcoal font-normal leading-relaxed">
               {project.shortDescription}
             </p>
             <p>{project.concept}</p>
 
             {/* Materiality & Sustainable Features Badges */}
-            <div className="pt-8 border-t border-[#141414]/10 grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div className="pt-8 border-t border-charcoal/10 grid grid-cols-1 sm:grid-cols-2 gap-8">
               <div>
-                <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#141414] mb-3">
+                <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-charcoal mb-3">
                   <Layers className="w-4 h-4 text-[#A08975]" />
                   <span>Tactile Materiality</span>
                 </div>
@@ -191,14 +191,14 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
               </div>
 
               <div>
-                <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#141414] mb-3">
+                <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-charcoal mb-3">
                   <Leaf className="w-4 h-4 text-[#A08975]" />
                   <span>Climate Systems</span>
                 </div>
                 <ul className="space-y-1.5 text-xs text-[#666360]">
                   {project.sustainabilityFeatures.map((sus, i) => (
                     <li key={i} className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#B8A99A]" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-gold" />
                       <span>{sus}</span>
                     </li>
                   ))}
@@ -211,14 +211,14 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
 
       {/* Architectural Plans, Sections & Drawings Showcase */}
       {project.drawings && project.drawings.length > 0 && (
-        <section className="w-full bg-[#141414] text-[#F5F3EF] py-20 px-6 md:px-16 border-y border-[#2B2A28]">
+        <section className="w-full bg-charcoal text-ivory py-20 px-6 md:px-16 border-y border-[#2B2A28]">
           <div className="max-w-7xl mx-auto">
             <div className="flex items-end justify-between pb-6 border-b border-[#2B2A28] mb-12">
               <div>
                 <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#A08975] block mb-2">
                   // TECHNICAL CARTOGRAPHY
                 </span>
-                <h3 className="font-serif text-3xl md:text-4xl font-light text-[#F5F3EF]">
+                <h3 className="font-serif text-3xl md:text-4xl font-light text-ivory">
                   Architectural Drawings & Tectonic Sections
                 </h3>
               </div>
@@ -243,14 +243,14 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
                       className="object-cover invert opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                       sizes="(max-width: 768px) 100vw, 50vw"
                     />
-                    <div className="absolute top-3 left-3 px-2 py-1 bg-black/80 backdrop-blur-md text-[#B8A99A] text-[9px] font-mono tracking-widest uppercase">
+                    <div className="absolute top-3 left-3 px-2 py-1 bg-black/80 backdrop-blur-md text-gold text-[9px] font-mono tracking-widest uppercase">
                       {drawing.type}
                     </div>
                     <div className="absolute bottom-3 right-3 p-2 bg-black/80 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
-                      <ZoomIn className="w-4 h-4 text-[#B8A99A]" />
+                      <ZoomIn className="w-4 h-4 text-gold" />
                     </div>
                   </div>
-                  <h4 className="font-serif text-xl text-[#F5F3EF] group-hover:text-[#A08975] transition-colors">
+                  <h4 className="font-serif text-xl text-ivory group-hover:text-[#A08975] transition-colors">
                     {drawing.title}
                   </h4>
                   <p className="text-xs font-sans text-[#A69E94] mt-1.5">
@@ -265,11 +265,11 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
 
       {/* Curated Photographic Gallery: Offset & Full-Width Layout */}
       <section className="max-w-7xl mx-auto py-24 px-6 md:px-16">
-        <div className="pb-8 border-b border-[#141414]/15 mb-16">
+        <div className="pb-8 border-b border-charcoal/15 mb-16">
           <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#8C7D70] block mb-2">
             // VISUAL CHRONICLE
           </span>
-          <h3 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-[#141414]">
+          <h3 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-charcoal">
             Spatial Gallery & Tactile Studies
           </h3>
         </div>
@@ -296,7 +296,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
                 <div
                   className={`relative w-full ${
                     isWide ? "h-[500px] md:h-[680px]" : "h-[450px] md:h-[580px]"
-                  } overflow-hidden bg-[#E8E4DC]`}
+                  } overflow-hidden bg-ivory-deep`}
                 >
                   <Image
                     src={item.url}
@@ -320,7 +320,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
       </section>
 
       {/* "Next Project" Slide-In Footer */}
-      <section className="w-full bg-[#141414] text-[#F5F3EF] border-t border-[#2B2A28] overflow-hidden">
+      <section className="w-full bg-charcoal text-ivory border-t border-[#2B2A28] overflow-hidden">
         <Link
           href={`/projects/${nextProject.slug}`}
           className="group block relative py-24 sm:py-32 px-6 md:px-16"
@@ -343,7 +343,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
               <span className="text-xs font-mono uppercase tracking-[0.3em] text-[#A08975] block mb-3">
                 NEXT COMMISSION // 0{PROJECTS.findIndex((p) => p.slug === nextProject.slug) + 1}
               </span>
-              <h2 className="font-serif text-4xl sm:text-6xl md:text-7xl font-light text-[#F5F3EF] group-hover:text-[#B8A99A] transition-colors">
+              <h2 className="font-serif text-4xl sm:text-6xl md:text-7xl font-light text-ivory group-hover:text-gold transition-colors">
                 {nextProject.title}
               </h2>
               <p className="text-xs font-mono text-[#A69E94] mt-2">
@@ -351,9 +351,9 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
               </p>
             </div>
 
-            <div className="flex items-center gap-4 text-sm font-sans tracking-widest uppercase text-[#B8A99A] group-hover:text-[#F5F3EF] transition-colors">
+            <div className="flex items-center gap-4 text-sm font-sans tracking-widest uppercase text-gold group-hover:text-ivory transition-colors">
               <span>Explore Project</span>
-              <div className="w-12 h-12 rounded-full border border-[#B8A99A] flex items-center justify-center group-hover:translate-x-2 transition-transform">
+              <div className="w-12 h-12 rounded-full border border-gold flex items-center justify-center group-hover:translate-x-2 transition-transform">
                 <ArrowRight className="w-5 h-5" />
               </div>
             </div>

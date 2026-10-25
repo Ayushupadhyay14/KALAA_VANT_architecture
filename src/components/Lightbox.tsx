@@ -52,7 +52,7 @@ export default function Lightbox({
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.3 }}
-        className="fixed inset-0 z-[1000] bg-black/95 text-[#F5F3EF] flex flex-col justify-between p-4 sm:p-8 backdrop-blur-xl select-none"
+        className="fixed inset-0 z-[1000] bg-black/95 text-ivory flex flex-col justify-between p-4 sm:p-8 backdrop-blur-xl select-none"
         role="dialog"
         aria-modal="true"
         aria-label="Architectural drawing and plan lightbox"
@@ -60,7 +60,7 @@ export default function Lightbox({
         {/* Header Bar */}
         <div className="flex items-center justify-between z-10">
           <div className="flex items-center gap-3">
-            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-[#B8A99A]">
+            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-gold">
               ARCHITECTURAL ARCHIVE
             </span>
             <span className="text-xs font-mono text-[#8C7D70]">
@@ -70,7 +70,7 @@ export default function Lightbox({
 
           <button
             onClick={onClose}
-            className="p-2 text-[#F5F3EF] hover:text-[#B8A99A] transition-colors focus:outline-hidden"
+            className="p-2 text-ivory hover:text-gold transition-colors focus:outline-hidden"
             aria-label="Close Lightbox"
             data-cursor="close"
           >
@@ -84,7 +84,7 @@ export default function Lightbox({
           {items.length > 1 && (
             <button
               onClick={onPrev}
-              className="absolute left-2 sm:left-6 z-20 p-3 bg-white/10 hover:bg-white/20 text-[#F5F3EF] backdrop-blur-md rounded-full transition-all focus:outline-hidden"
+              className="absolute left-2 sm:left-6 z-20 p-3 bg-white/10 hover:bg-white/20 text-ivory backdrop-blur-md rounded-full transition-all focus:outline-hidden"
               aria-label="Previous drawing"
               data-cursor="link"
             >
@@ -115,7 +115,7 @@ export default function Lightbox({
           {items.length > 1 && (
             <button
               onClick={onNext}
-              className="absolute right-2 sm:right-6 z-20 p-3 bg-white/10 hover:bg-white/20 text-[#F5F3EF] backdrop-blur-md rounded-full transition-all focus:outline-hidden"
+              className="absolute right-2 sm:right-6 z-20 p-3 bg-white/10 hover:bg-white/20 text-ivory backdrop-blur-md rounded-full transition-all focus:outline-hidden"
               aria-label="Next drawing"
               data-cursor="link"
             >
@@ -128,11 +128,11 @@ export default function Lightbox({
         <div className="max-w-4xl mx-auto w-full text-center z-10 pt-2 border-t border-white/10">
           <div className="flex items-center justify-center gap-3">
             {currentItem.type && (
-              <span className="px-2 py-0.5 bg-[#B8A99A] text-black text-[9px] font-mono tracking-widest uppercase">
+              <span className="px-2 py-0.5 bg-gold text-black text-[9px] font-mono tracking-widest uppercase">
                 {currentItem.type}
               </span>
             )}
-            <h3 className="font-serif text-lg sm:text-xl text-[#F5F3EF]">
+            <h3 className="font-serif text-lg sm:text-xl text-ivory">
               {currentItem.title}
             </h3>
           </div>

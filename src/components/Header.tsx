@@ -10,25 +10,7 @@ import { ArrowUpRight, Menu, X } from "lucide-react";
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [mumbaiTime, setMumbaiTime] = useState("");
   const pathname = usePathname();
-
-  // Update IST Live Clock
-  useEffect(() => {
-    const updateTime = () => {
-      const options: Intl.DateTimeFormatOptions = {
-        timeZone: "Asia/Kolkata",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: false,
-      };
-      setMumbaiTime(new Intl.DateTimeFormat("en-GB", options).format(new Date()));
-    };
-    updateTime();
-    const timer = setInterval(updateTime, 1000);
-    return () => clearInterval(timer);
-  }, []);
 
   // Monitor Scroll for Header shrink and contrast
   useEffect(() => {
@@ -60,39 +42,41 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b text-ivory ${
           isScrolled
-            ? "py-2.5 sm:py-3 bg-[#F5F3EF]/95 backdrop-blur-md border-b border-[#141414]/10 shadow-xs text-[#141414]"
-            : "py-3 sm:py-3.5 bg-black/35 backdrop-blur-xs border-b border-white/10 text-[#F5F3EF]"
+            ? "py-2.5 sm:py-3 bg-charcoal/95 backdrop-blur-md border-gold/20"
+            : "py-3 sm:py-3.5 bg-charcoal/60 backdrop-blur-xs border-white/10"
         }`}
       >
         <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 flex items-center justify-between">
           {/* Logo & Identity - Smaller & Refined */}
           <Link
             href="/"
+            onClick={(e) => {
+              // Already on the home page: Next.js won't scroll, so go to the top ourselves.
+              if (pathname === "/") {
+                e.preventDefault();
+                window.history.replaceState(null, "", "/");
+                window.scrollTo({ top: 0 });
+              }
+            }}
             className="group flex flex-col focus:outline-hidden"
             data-cursor="link"
           >
             <div className="flex items-baseline gap-1.5">
               <span
-                className={`font-serif text-lg sm:text-xl tracking-[0.18em] font-light transition-colors ${
-                  isScrolled ? "text-[#141414]" : "text-[#F5F3EF]"
-                }`}
+                className={`font-serif text-lg sm:text-xl tracking-[0.18em] font-light transition-colors text-ivory`}
               >
                 KALAA VANT
               </span>
               <span
-                className={`text-[9px] tracking-wider font-serif uppercase hidden sm:inline ${
-                  isScrolled ? "text-[#A08975]" : "text-[#B8A99A]"
-                }`}
+                className={`text-[9px] tracking-wider font-serif uppercase hidden sm:inline text-gold`}
               >
                 / {STUDIO_INFO.nativeName}
               </span>
             </div>
             <span
-              className={`text-[8px] tracking-[0.24em] uppercase font-sans -mt-0.5 transition-colors ${
-                isScrolled ? "text-[#666360]" : "text-[#A69C8E]"
-              }`}
+              className={`text-[8px] tracking-[0.24em] uppercase font-sans -mt-0.5 transition-colors text-[#A69C8E]`}
             >
               Art & Murals Atelier
             </span>
@@ -104,11 +88,7 @@ export default function Header() {
               <Link
                 key={link.name}
                 href={link.href}
-                className={`text-[11px] tracking-[0.18em] uppercase font-sans transition-colors relative py-0.5 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] hover:after:w-full after:transition-all after:duration-300 ${
-                  isScrolled
-                    ? "text-[#141414] hover:text-[#A08975] after:bg-[#141414]"
-                    : "text-[#E8E5DF] hover:text-[#B8A99A] after:bg-[#B8A99A]"
-                }`}
+                className={`text-[11px] tracking-[0.18em] uppercase font-sans transition-colors relative py-0.5 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] hover:after:w-full after:transition-all after:duration-300 text-[#E8E5DF] hover:text-gold after:bg-gold`}
                 data-cursor="link"
               >
                 {link.name}
@@ -116,32 +96,11 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Right Section: Time & Inquiry Button / Menu Trigger */}
+          {/* Right Section: Inquiry Button / Menu Trigger */}
           <div className="flex items-center gap-4 sm:gap-5">
-            <div className="hidden xl:flex flex-col text-right">
-              <span
-                className={`text-[9px] font-mono tracking-widest ${
-                  isScrolled ? "text-[#8C7D70]" : "text-[#A69C8E]"
-                }`}
-              >
-                MUMBAI (IST)
-              </span>
-              <span
-                className={`text-[11px] font-mono tracking-wider ${
-                  isScrolled ? "text-[#141414]" : "text-[#F5F3EF]"
-                }`}
-              >
-                {mumbaiTime || "18:30:00"}
-              </span>
-            </div>
-
             <Link
               href="/#contact"
-              className={`hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 text-[10px] font-sans tracking-[0.18em] uppercase transition-all duration-300 rounded-none border ${
-                isScrolled
-                  ? "border-[#141414] text-[#141414] hover:bg-[#141414] hover:text-[#F5F3EF]"
-                  : "border-white/30 text-[#F5F3EF] hover:bg-white hover:text-[#141414] backdrop-blur-xs"
-              }`}
+              className={`hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 text-[10px] font-sans tracking-[0.18em] uppercase transition-all duration-300 rounded-none border border-white/30 text-ivory hover:bg-white hover:text-charcoal backdrop-blur-xs`}
               data-cursor="link"
             >
               <span>Inquire</span>
@@ -151,9 +110,7 @@ export default function Header() {
             {/* Menu Toggle Trigger */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className={`flex items-center gap-1.5 p-1.5 hover:opacity-75 transition-colors focus:outline-hidden ${
-                isScrolled ? "text-[#141414]" : "text-[#F5F3EF]"
-              }`}
+              className={`flex items-center gap-1.5 p-1.5 hover:opacity-75 transition-colors focus:outline-hidden text-ivory`}
               aria-label="Toggle Navigation Menu"
               data-cursor="link"
             >
@@ -174,7 +131,7 @@ export default function Header() {
             animate={{ opacity: 1, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" }}
             exit={{ opacity: 0, clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)" }}
             transition={{ duration: 0.7, ease: [0.77, 0, 0.175, 1] }}
-            className="fixed inset-0 z-40 bg-[#141414] text-[#F5F3EF] flex flex-col justify-between pt-32 pb-12 px-8 md:px-16 overflow-y-auto"
+            className="fixed inset-0 z-40 bg-charcoal text-ivory flex flex-col justify-between pt-32 pb-12 px-8 md:px-16 overflow-y-auto"
           >
             <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 my-auto">
               {/* Primary Links */}
@@ -196,10 +153,10 @@ export default function Header() {
                     <Link
                       href={link.href}
                       onClick={() => setMenuOpen(false)}
-                      className="group flex items-baseline gap-4 font-serif text-4xl sm:text-5xl md:text-6xl text-[#F5F3EF] hover:text-[#B8A99A] transition-colors"
+                      className="group flex items-baseline gap-4 font-serif text-4xl sm:text-5xl md:text-6xl text-ivory hover:text-gold transition-colors"
                       data-cursor="link"
                     >
-                      <span className="text-xs font-mono tracking-widest text-[#8F877C] group-hover:text-[#B8A99A]">
+                      <span className="text-xs font-mono tracking-widest text-[#8F877C] group-hover:text-gold">
                         0{index + 1}
                       </span>
                       <span>{link.name}</span>
@@ -220,7 +177,7 @@ export default function Header() {
                         key={p.id}
                         href={`/projects/${p.slug}`}
                         onClick={() => setMenuOpen(false)}
-                        className="group flex items-center justify-between py-2 border-b border-[#242321] text-sm text-[#D6D2CA] hover:text-[#F5F3EF] transition-colors"
+                        className="group flex items-center justify-between py-2 border-b border-[#242321] text-sm text-[#D6D2CA] hover:text-ivory transition-colors"
                         data-cursor="project"
                         data-cursor-text="VIEW"
                       >
@@ -235,10 +192,10 @@ export default function Header() {
 
                 <div className="mt-12 flex flex-col gap-4 text-xs font-sans text-[#A69E94]">
                   <div>
-                    <p className="font-medium text-[#F5F3EF]">Atelier Inquiries</p>
+                    <p className="font-medium text-ivory">Atelier Inquiries</p>
                     <a
                       href={`mailto:${STUDIO_INFO.contact.email}`}
-                      className="hover:text-[#B8A99A] transition-colors"
+                      className="hover:text-gold transition-colors"
                     >
                       {STUDIO_INFO.contact.email}
                     </a>
@@ -248,7 +205,7 @@ export default function Header() {
                       href={STUDIO_INFO.contact.instagram}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:text-[#F5F3EF] tracking-widest uppercase transition-colors"
+                      className="hover:text-ivory tracking-widest uppercase transition-colors"
                     >
                       Instagram ({STUDIO_INFO.contact.instagramHandle})
                     </a>
@@ -256,7 +213,7 @@ export default function Header() {
                       href={STUDIO_INFO.contact.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:text-[#F5F3EF] tracking-widest uppercase transition-colors"
+                      className="hover:text-ivory tracking-widest uppercase transition-colors"
                     >
                       LinkedIn
                     </a>

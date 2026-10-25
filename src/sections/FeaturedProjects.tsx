@@ -27,18 +27,18 @@ export default function FeaturedProjects() {
   return (
     <section
       id="projects"
-      className="relative w-full py-28 md:py-40 bg-[#F5F3EF] text-[#141414] px-6 md:px-12 lg:px-20 border-b border-[#141414]/10"
+      className="relative w-full py-28 md:py-40 bg-ivory text-charcoal px-6 md:px-12 lg:px-20 border-b border-charcoal/10"
     >
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-[#141414]/15 mb-14">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-charcoal/15 mb-14">
           <div>
             <div className="flex items-center gap-3 text-[11px] font-mono tracking-[0.3em] uppercase text-[#8C7D70] mb-3">
               <span>02 / SELECTED PORTFOLIO</span>
               <span>•</span>
               <span className="text-[#A08975]">वास्तुकला संग्रह</span>
             </div>
-            <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl font-light text-[#141414] tracking-tight">
+            <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl font-light text-charcoal tracking-tight">
               Featured Architecture
             </h2>
           </div>
@@ -56,8 +56,8 @@ export default function FeaturedProjects() {
               onClick={() => setActiveCategory(cat.id)}
               className={`px-5 py-2.5 text-xs font-sans tracking-[0.18em] uppercase transition-all duration-300 whitespace-nowrap ${
                 activeCategory === cat.id
-                  ? "bg-[#141414] text-[#F5F3EF]"
-                  : "bg-transparent text-[#666360] hover:text-[#141414] border border-[#141414]/15 hover:border-[#141414]"
+                  ? "bg-charcoal text-ivory"
+                  : "bg-transparent text-[#666360] hover:text-charcoal border border-charcoal/15 hover:border-charcoal"
               }`}
               data-cursor="link"
             >
@@ -88,7 +88,7 @@ export default function FeaturedProjects() {
                   {/* Image Container with Custom Cursor Trigger & Hover Zoom */}
                   <Link
                     href={`/projects/${project.slug}`}
-                    className="relative w-full overflow-hidden block bg-[#E8E4DC]"
+                    className="relative w-full overflow-hidden block bg-ivory-deep"
                     data-cursor="project"
                     data-cursor-text="VIEW"
                   >
@@ -104,17 +104,17 @@ export default function FeaturedProjects() {
                       <div className="absolute inset-0 bg-black/10 group-hover:bg-black/25 transition-colors duration-500" />
 
                       {/* Year badge pill */}
-                      <div className="absolute top-5 left-5 px-3 py-1 bg-[#141414]/80 backdrop-blur-md text-[#F5F3EF] text-[10px] font-mono tracking-widest uppercase">
+                      <div className="absolute top-5 left-5 px-3 py-1 bg-charcoal/80 backdrop-blur-md text-ivory text-[10px] font-mono tracking-widest uppercase">
                         {project.year}
                       </div>
 
                       {/* Typology pill */}
-                      <div className="absolute bottom-5 left-5 px-3 py-1 bg-[#F5F3EF]/90 backdrop-blur-md text-[#141414] text-[10px] font-sans tracking-widest uppercase">
+                      <div className="absolute bottom-5 left-5 px-3 py-1 bg-ivory/90 backdrop-blur-md text-charcoal text-[10px] font-sans tracking-widest uppercase">
                         {project.typology}
                       </div>
 
                       {/* Arrow indicator */}
-                      <div className="absolute bottom-5 right-5 w-10 h-10 bg-[#141414] text-[#F5F3EF] flex items-center justify-center opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                      <div className="absolute bottom-5 right-5 w-10 h-10 bg-charcoal text-ivory flex items-center justify-center opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
                         <ArrowUpRight className="w-5 h-5" />
                       </div>
                     </div>
@@ -128,7 +128,7 @@ export default function FeaturedProjects() {
                         className="group-hover:text-[#A08975] transition-colors"
                         data-cursor="link"
                       >
-                        <h3 className="font-serif text-2xl md:text-3xl font-normal text-[#141414] tracking-tight">
+                        <h3 className="font-serif text-2xl md:text-3xl font-normal text-charcoal tracking-tight">
                           {project.title}
                         </h3>
                       </Link>
@@ -141,7 +141,7 @@ export default function FeaturedProjects() {
                       {project.shortDescription}
                     </p>
 
-                    <div className="flex items-center justify-between pt-3 border-t border-[#141414]/10 text-[11px] font-mono text-[#8C7D70]">
+                    <div className="flex items-center justify-between pt-3 border-t border-charcoal/10 text-[11px] font-mono text-[#8C7D70]">
                       <span className="flex items-center gap-1.5 truncate">
                         <Compass className="w-3 h-3 text-[#A08975] shrink-0" />
                         {project.location}
@@ -156,9 +156,9 @@ export default function FeaturedProjects() {
         </div>
 
         {/* View All / Archive Banner */}
-        <div className="mt-20 p-8 md:p-12 bg-[#EBE7DF] flex flex-col md:flex-row items-center justify-between gap-6 border border-[#141414]/10">
+        <div className="mt-20 p-8 md:p-12 bg-ivory-deep flex flex-col md:flex-row items-center justify-between gap-6 border border-charcoal/10">
           <div>
-            <h4 className="font-serif text-2xl md:text-3xl text-[#141414]">
+            <h4 className="font-serif text-2xl md:text-3xl text-charcoal">
               Interested in commissioning a bespoke residence or atelier?
             </h4>
             <p className="text-xs font-sans text-[#666360] mt-1">
@@ -167,7 +167,7 @@ export default function FeaturedProjects() {
           </div>
           <Link
             href="/#contact"
-            className="px-8 py-4 bg-[#141414] text-[#F5F3EF] text-xs font-sans tracking-[0.2em] uppercase hover:bg-[#A08975] transition-colors whitespace-nowrap"
+            className="px-8 py-4 bg-charcoal text-ivory text-xs font-sans tracking-[0.2em] uppercase hover:bg-[#A08975] transition-colors whitespace-nowrap"
             data-cursor="link"
           >
             Start Architectural Dialogue

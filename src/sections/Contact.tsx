@@ -13,26 +13,35 @@ export default function Contact() {
     phone: "",
     projectType: "Residential Villa",
     location: "",
-    budget: "₹5 Cr - ₹15 Cr ($600K - $1.8M)",
+    budget: "Undetermined",
     message: "",
   });
 
   const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
 
+  // No backend exists yet: open the visitor's email app with the brief prefilled
+  // instead of showing a fake "received" state.
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSubmitted(true);
-    }, 1200);
+    const subject = `Inquiry from ${formState.name}`;
+    const body = [
+      `Name: ${formState.name}`,
+      `Email: ${formState.email}`,
+      `Phone: ${formState.phone || "-"}`,
+      `Project type: ${formState.projectType}`,
+      `Location: ${formState.location || "-"}`,
+      `Budget: ${formState.budget}`,
+      "",
+      formState.message,
+    ].join("\n");
+    window.location.href = `mailto:${STUDIO_INFO.contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setSubmitted(true);
   };
 
   return (
     <section
       id="contact"
-      className="relative w-full py-28 md:py-40 bg-[#141414] text-[#F5F3EF] px-6 md:px-12 lg:px-20"
+      className="relative w-full py-28 md:py-40 bg-charcoal text-ivory px-6 md:px-12 lg:px-20"
     >
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
@@ -40,7 +49,7 @@ export default function Contact() {
           <span className="text-[11px] font-mono tracking-[0.3em] uppercase text-[#A08975]">
             05 / INQUIRY & CORRESPONDENCE
           </span>
-          <span className="text-[11px] font-serif tracking-widest text-[#B8A99A]">
+          <span className="text-[11px] font-serif tracking-widest text-gold">
             संपर्क आणि प्रकल्प संवाद
           </span>
         </div>
@@ -52,7 +61,7 @@ export default function Contact() {
               <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#A08975] block mb-3">
                 // COMMISSION A WORK
               </span>
-              <h2 className="font-serif text-4xl sm:text-5xl font-light text-[#F5F3EF] leading-tight mb-6">
+              <h2 className="font-serif text-4xl sm:text-5xl font-light text-ivory leading-tight mb-6">
                 Let us begin an architectural conversation.
               </h2>
               <p className="text-xs font-sans text-[#A69E94] leading-relaxed mb-10">
@@ -69,7 +78,7 @@ export default function Contact() {
                     </span>
                     <a
                       href={`mailto:${STUDIO_INFO.contact.email}`}
-                      className="text-sm font-sans text-[#F5F3EF] hover:text-[#B8A99A] transition-colors"
+                      className="text-sm font-sans text-ivory hover:text-gold transition-colors"
                     >
                       {STUDIO_INFO.contact.email}
                     </a>
@@ -84,7 +93,7 @@ export default function Contact() {
                     </span>
                     <a
                       href={`tel:${STUDIO_INFO.contact.phone}`}
-                      className="text-sm font-sans text-[#F5F3EF] hover:text-[#B8A99A] transition-colors"
+                      className="text-sm font-sans text-ivory hover:text-gold transition-colors"
                     >
                       {STUDIO_INFO.contact.phone}
                     </a>
@@ -101,7 +110,7 @@ export default function Contact() {
                   <div key={i} className="p-3 bg-[#1C1B19] border border-[#2B2A28] flex items-start gap-3">
                     <MapPin className="w-4 h-4 text-[#A08975] mt-0.5 shrink-0" />
                     <div>
-                      <p className="text-xs font-serif text-[#F5F3EF]">{st.city} — {st.role}</p>
+                      <p className="text-xs font-serif text-ivory">{st.city} — {st.role}</p>
                       <p className="text-[11px] font-sans text-[#A69E94]">{st.address}</p>
                       <span className="text-[9px] font-mono text-[#8C7D70]">{st.coordinates}</span>
                     </div>
@@ -120,7 +129,7 @@ export default function Contact() {
                   href={STUDIO_INFO.contact.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-xs font-mono tracking-widest uppercase text-[#F5F3EF] hover:text-[#B8A99A] transition-colors"
+                  className="flex items-center gap-2 text-xs font-mono tracking-widest uppercase text-ivory hover:text-gold transition-colors"
                   data-cursor="link"
                 >
                   <InstagramIcon className="w-4 h-4 text-[#A08975]" />
@@ -130,7 +139,7 @@ export default function Contact() {
                   href={STUDIO_INFO.contact.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-xs font-mono tracking-widest uppercase text-[#F5F3EF] hover:text-[#B8A99A] transition-colors"
+                  className="flex items-center gap-2 text-xs font-mono tracking-widest uppercase text-ivory hover:text-gold transition-colors"
                   data-cursor="link"
                 >
                   <LinkedInIcon className="w-4 h-4 text-[#A08975]" />
@@ -148,20 +157,24 @@ export default function Contact() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="py-16 text-center flex flex-col items-center justify-center space-y-4"
               >
-                <div className="w-14 h-14 rounded-full bg-[#B8A99A]/20 flex items-center justify-center text-[#B8A99A]">
+                <div className="w-14 h-14 rounded-full bg-gold/20 flex items-center justify-center text-gold">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
-                <h3 className="font-serif text-3xl text-[#F5F3EF]">
-                  Inquiry Received
+                <h3 className="font-serif text-3xl text-ivory">
+                  Almost There
                 </h3>
                 <p className="text-xs font-sans text-[#A69E94] max-w-md leading-relaxed">
-                  Thank you for reaching out to Studio Kalaa Vant. A partner architect will review your project parameters and respond within two business days.
+                  Your email app should now open with your inquiry ready to send. Please press send there. Nothing is delivered until you do. If it did not open, email us directly at{" "}
+                  <a href={`mailto:${STUDIO_INFO.contact.email}`} className="text-gold underline">
+                    {STUDIO_INFO.contact.email}
+                  </a>
+                  .
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
-                  className="mt-6 px-6 py-2.5 border border-[#2B2A28] text-xs font-mono uppercase tracking-widest text-[#B8A99A] hover:bg-[#2B2A28] transition-colors"
+                  className="mt-6 px-6 py-2.5 border border-[#2B2A28] text-xs font-mono uppercase tracking-widest text-gold hover:bg-[#2B2A28] transition-colors"
                 >
-                  Submit Another Inquiry
+                  Back to Form
                 </button>
               </motion.div>
             ) : (
@@ -181,7 +194,7 @@ export default function Contact() {
                       value={formState.name}
                       onChange={(e) => setFormState({ ...formState, name: e.target.value })}
                       placeholder="e.g. Ananya Deshmukh"
-                      className="w-full bg-[#141414] border border-[#2B2A28] px-4 py-3 text-xs text-[#F5F3EF] focus:border-[#B8A99A] focus:outline-hidden transition-colors rounded-none placeholder:text-[#524F4B]"
+                      className="w-full bg-charcoal border border-[#2B2A28] px-4 py-3 text-xs text-ivory focus:border-gold focus:outline-hidden transition-colors rounded-none placeholder:text-[#524F4B]"
                     />
                   </div>
 
@@ -195,7 +208,7 @@ export default function Contact() {
                       value={formState.email}
                       onChange={(e) => setFormState({ ...formState, email: e.target.value })}
                       placeholder="ananya@example.com"
-                      className="w-full bg-[#141414] border border-[#2B2A28] px-4 py-3 text-xs text-[#F5F3EF] focus:border-[#B8A99A] focus:outline-hidden transition-colors rounded-none placeholder:text-[#524F4B]"
+                      className="w-full bg-charcoal border border-[#2B2A28] px-4 py-3 text-xs text-ivory focus:border-gold focus:outline-hidden transition-colors rounded-none placeholder:text-[#524F4B]"
                     />
                   </div>
                 </div>
@@ -208,7 +221,7 @@ export default function Contact() {
                     <select
                       value={formState.projectType}
                       onChange={(e) => setFormState({ ...formState, projectType: e.target.value })}
-                      className="w-full bg-[#141414] border border-[#2B2A28] px-4 py-3 text-xs text-[#F5F3EF] focus:border-[#B8A99A] focus:outline-hidden transition-colors rounded-none"
+                      className="w-full bg-charcoal border border-[#2B2A28] px-4 py-3 text-xs text-ivory focus:border-gold focus:outline-hidden transition-colors rounded-none"
                     >
                       <option value="Residential Villa">Bespoke Residential Villa</option>
                       <option value="Coastal Estate">Coastal / Beach Retreat (Alibaug/Goa)</option>
@@ -227,7 +240,7 @@ export default function Contact() {
                       value={formState.location}
                       onChange={(e) => setFormState({ ...formState, location: e.target.value })}
                       placeholder="e.g. Alibaug / Lonavala / Pune / Mumbai"
-                      className="w-full bg-[#141414] border border-[#2B2A28] px-4 py-3 text-xs text-[#F5F3EF] focus:border-[#B8A99A] focus:outline-hidden transition-colors rounded-none placeholder:text-[#524F4B]"
+                      className="w-full bg-charcoal border border-[#2B2A28] px-4 py-3 text-xs text-ivory focus:border-gold focus:outline-hidden transition-colors rounded-none placeholder:text-[#524F4B]"
                     />
                   </div>
                 </div>
@@ -239,7 +252,7 @@ export default function Contact() {
                   <select
                     value={formState.budget}
                     onChange={(e) => setFormState({ ...formState, budget: e.target.value })}
-                    className="w-full bg-[#141414] border border-[#2B2A28] px-4 py-3 text-xs text-[#F5F3EF] focus:border-[#B8A99A] focus:outline-hidden transition-colors rounded-none"
+                    className="w-full bg-charcoal border border-[#2B2A28] px-4 py-3 text-xs text-ivory focus:border-gold focus:outline-hidden transition-colors rounded-none"
                   >
                     <option value="₹3 Cr - ₹7 Cr">₹3 Cr – ₹7 Cr (~$350K – $850K)</option>
                     <option value="₹7 Cr - ₹15 Cr">₹7 Cr – ₹15 Cr (~$850K – $1.8M)</option>
@@ -258,24 +271,17 @@ export default function Contact() {
                     value={formState.message}
                     onChange={(e) => setFormState({ ...formState, message: e.target.value })}
                     placeholder="Tell us about the site topography, your lifestyle aspirations, family requirements, and preferred timeline..."
-                    className="w-full bg-[#141414] border border-[#2B2A28] px-4 py-3 text-xs text-[#F5F3EF] focus:border-[#B8A99A] focus:outline-hidden transition-colors rounded-none placeholder:text-[#524F4B]"
+                    className="w-full bg-charcoal border border-[#2B2A28] px-4 py-3 text-xs text-ivory focus:border-gold focus:outline-hidden transition-colors rounded-none placeholder:text-[#524F4B]"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  disabled={loading}
-                  className="w-full py-4 bg-[#F5F3EF] text-[#141414] hover:bg-[#B8A99A] transition-all duration-300 font-sans text-xs tracking-[0.25em] uppercase font-medium flex items-center justify-center gap-2 rounded-none disabled:opacity-50"
+                  className="w-full py-4 bg-ivory text-charcoal hover:bg-gold transition-all duration-300 font-sans text-xs tracking-[0.25em] uppercase font-medium flex items-center justify-center gap-2 rounded-none"
                   data-cursor="link"
                 >
-                  {loading ? (
-                    <span>Transmitting Inquiry...</span>
-                  ) : (
-                    <>
-                      <span>Transmit Architectural Inquiry</span>
-                      <ArrowUpRight className="w-4 h-4" />
-                    </>
-                  )}
+                  <span>Transmit Architectural Inquiry</span>
+                  <ArrowUpRight className="w-4 h-4" />
                 </button>
               </form>
             )}

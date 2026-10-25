@@ -4,22 +4,26 @@
   --font-serif: var(--font-serif), "Cormorant Garamond", Georgia, serif;
   --font-sans: var(--font-sans), "Plus Jakarta Sans", system-ui, sans-serif;
 
-  --color-stone-bg: #F5F3EF;
+  --color-ivory: #F5F0E8;
+  --color-ivory-deep: #EAE4D8;
+  --color-gold: #C5A46D;
+  --color-bronze-deep: #7A6350;
+  --color-stone-bg: #F5F0E8;
   --color-stone-surface: #EAE6DF;
   --color-stone-card: #E3DFD7;
-  --color-charcoal: #141414;
+  --color-charcoal: #111111;
   --color-charcoal-muted: #595856;
-  --color-accent-stone: #B8A99A;
+  --color-accent-stone: #C5A46D;
   --color-accent-bronze: #A08975;
   --color-terracotta: #B9664E;
 }
 
 :root {
-  --bg-primary: #F5F3EF;
-  --text-primary: #141414;
+  --bg-primary: #F5F0E8;
+  --text-primary: #111111;
   --text-muted: #666360;
   --border-subtle: rgba(20, 20, 20, 0.1);
-  --accent-stone: #B8A99A;
+  --accent-stone: #C5A46D;
 }
 
 html {
@@ -92,7 +96,7 @@ html.lenis body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #F5F3EF;
+  background: #F5F0E8;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -106,8 +110,8 @@ html.lenis body {
 
 /* Selection */
 ::selection {
-  background: #141414;
-  color: #F5F3EF;
+  background: #111111;
+  color: #F5F0E8;
 }
 
 /* Ken Burns Slow Zoom Keyframe */
@@ -162,7 +166,9 @@ html.lenis body {
   will-change: transform;
 }
 
-.auto-scroll-track:hover {
+.auto-scroll-track:hover,
+.auto-scroll-track:active,
+.auto-scroll-track:focus-within {
   animation-play-state: paused;
 }
 

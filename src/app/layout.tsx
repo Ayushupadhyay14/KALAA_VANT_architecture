@@ -105,7 +105,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${serifFont.variable} ${sansFont.variable} h-full antialiased selection:bg-[#141414] selection:text-[#F5F3EF]`}
+      className={`${serifFont.variable} ${sansFont.variable} h-full antialiased selection:bg-charcoal selection:text-ivory`}
     >
       <head>
         <script
@@ -113,7 +113,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-full flex flex-col bg-[#F5F3EF] text-[#141414] overflow-x-hidden font-sans">
+      <body className="min-h-full flex flex-col bg-ivory text-charcoal overflow-x-hidden font-sans">
         <SmoothScroll>
           <Header />
           <div className="flex-1 w-full">{children}</div>

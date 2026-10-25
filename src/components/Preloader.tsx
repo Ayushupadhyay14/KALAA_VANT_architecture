@@ -49,13 +49,13 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
               ease: [0.77, 0, 0.175, 1], // user specified cubic-bezier
             },
           }}
-          className="fixed inset-0 z-[10000] flex flex-col justify-between bg-[#141414] text-[#F5F3EF] px-8 py-10 md:px-16 md:py-14 select-none"
+          className="fixed inset-0 z-[10000] flex flex-col justify-between bg-charcoal text-ivory px-8 py-10 md:px-16 md:py-14 select-none"
         >
           {/* Top metadata */}
           <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.25em] text-[#A69C8E]">
             <span>Studio Kalaa Vant</span>
-            <span>MUMBAI • PUNE • GOA</span>
-            <span className="hidden sm:inline">18.9986° N, 72.8277° E</span>
+            <span className="hidden sm:inline">Art & Murals Atelier</span>
+            <span>@kalaa_vant</span>
           </div>
 
           {/* Center Architectural Monogram & Stroke Draw */}
@@ -64,7 +64,7 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
             <div className="relative w-28 h-28 mb-8 flex items-center justify-center">
               <svg
                 viewBox="0 0 100 100"
-                className="w-full h-full stroke-[#F5F3EF]"
+                className="w-full h-full stroke-ivory"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -86,7 +86,7 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
                   y="22"
                   width="56"
                   height="56"
-                  stroke="#B8A99A"
+                  stroke="#C5A46D"
                   strokeWidth="0.6"
                   strokeDasharray="240"
                   initial={{ strokeDashoffset: 240 }}
@@ -110,7 +110,7 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 0.7 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
-                className="absolute font-serif text-lg text-[#B8A99A] tracking-wider"
+                className="absolute font-serif text-lg text-gold tracking-wider"
               >
                 क
               </motion.span>
@@ -122,7 +122,7 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
                 initial={{ y: 60, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.9, delay: 0.3, ease: [0.77, 0, 0.175, 1] }}
-                className="font-serif text-3xl md:text-5xl tracking-[0.2em] font-light text-center text-[#F5F3EF]"
+                className="font-serif text-3xl md:text-5xl tracking-[0.2em] font-light text-center text-ivory"
               >
                 KALAA VANT
               </motion.h1>
@@ -132,22 +132,22 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="font-sans text-[11px] md:text-xs tracking-[0.3em] uppercase text-[#B8A99A] text-center"
+              className="font-sans text-[11px] md:text-xs tracking-[0.3em] uppercase text-gold text-center"
             >
-              Atelier of Contextual Architecture
+              Art & Murals Atelier
             </motion.p>
           </div>
 
           {/* Bottom Loading Progress Bar & Percentage */}
           <div className="flex flex-col gap-3">
             <div className="flex items-center justify-between text-xs font-mono tracking-widest text-[#8F877C]">
-              <span>INITIALIZING ATELIER SPACES</span>
+              <span>LOADING ARTWORKS</span>
               <span>{progress}%</span>
             </div>
             {/* Thin architectural hairline rule */}
             <div className="w-full h-[1px] bg-[#2E2D2B] overflow-hidden">
               <motion.div
-                className="h-full bg-[#B8A99A]"
+                className="h-full bg-gold"
                 style={{ width: `${progress}%` }}
                 transition={{ ease: "easeOut" }}
               />

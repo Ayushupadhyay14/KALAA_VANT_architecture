@@ -11,7 +11,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="w-full bg-[#0D0D0D] text-[#F5F3EF] border-t border-[#242321] pt-20 pb-12 px-6 md:px-12 lg:px-20">
+    <footer className="w-full bg-[#0D0D0D] text-ivory border-t border-[#242321] pt-20 pb-12 px-6 md:px-12 lg:px-20">
       <div className="max-w-7xl mx-auto">
         {/* Top Brand Banner */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-16 border-b border-[#242321]">
@@ -19,18 +19,18 @@ export default function Footer() {
             <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-[#A08975] block mb-2">
               STUDIO KALAA VANT • कलावंत
             </span>
-            <h2 className="font-serif text-4xl sm:text-6xl md:text-7xl font-light tracking-wide text-[#F5F3EF]">
+            <h2 className="font-serif text-4xl sm:text-6xl md:text-7xl font-light tracking-wide text-ivory">
               Silence In Stone.
             </h2>
           </div>
 
           <button
             onClick={scrollToTop}
-            className="group flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-[#B8A99A] hover:text-[#F5F3EF] transition-colors self-start md:self-end"
+            className="group flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-gold hover:text-ivory transition-colors self-start md:self-end"
             data-cursor="link"
           >
             <span>Back To Top</span>
-            <div className="w-8 h-8 rounded-full border border-[#B8A99A]/30 flex items-center justify-center group-hover:border-[#F5F3EF] transition-colors">
+            <div className="w-8 h-8 rounded-full border border-gold/30 flex items-center justify-center group-hover:border-ivory transition-colors">
               <ArrowUp className="w-4 h-4" />
             </div>
           </button>
@@ -39,37 +39,37 @@ export default function Footer() {
         {/* Middle Navigation Columns */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 py-16 border-b border-[#242321] text-xs font-sans text-[#A69E94]">
           <div>
-            <h4 className="text-[10px] font-mono uppercase tracking-widest text-[#F5F3EF] mb-4">
+            <h4 className="text-[10px] font-mono uppercase tracking-widest text-ivory mb-4">
               Atelier Index
             </h4>
             <ul className="space-y-2.5">
               <li>
-                <Link href="/#projects" className="hover:text-[#F5F3EF] transition-colors">
+                <Link href="/#projects" className="hover:text-ivory transition-colors">
                   Featured Works
                 </Link>
               </li>
               <li>
-                <Link href="/#archive" className="hover:text-[#F5F3EF] transition-colors">
+                <Link href="/#archive" className="hover:text-ivory transition-colors">
                   Cultural Archive (@kalaa_vant)
                 </Link>
               </li>
               <li>
-                <Link href="/#philosophy" className="hover:text-[#F5F3EF] transition-colors">
+                <Link href="/#philosophy" className="hover:text-ivory transition-colors">
                   Studio Ethos
                 </Link>
               </li>
               <li>
-                <Link href="/#studio" className="hover:text-[#F5F3EF] transition-colors">
+                <Link href="/#studio" className="hover:text-ivory transition-colors">
                   Principals & Team
                 </Link>
               </li>
               <li>
-                <Link href="/#services" className="hover:text-[#F5F3EF] transition-colors">
+                <Link href="/#services" className="hover:text-ivory transition-colors">
                   Architectural Services
                 </Link>
               </li>
               <li>
-                <Link href="/#contact" className="hover:text-[#F5F3EF] transition-colors">
+                <Link href="/#contact" className="hover:text-ivory transition-colors">
                   Direct Inquiries
                 </Link>
               </li>
@@ -77,27 +77,27 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-[10px] font-mono uppercase tracking-widest text-[#F5F3EF] mb-4">
+            <h4 className="text-[10px] font-mono uppercase tracking-widest text-ivory mb-4">
               Locations
             </h4>
             <ul className="space-y-2.5 text-[#8C7D70]">
               <li>
-                <span className="text-[#F5F3EF] block">Pune Atelier</span>
+                <span className="text-ivory block">Pune Atelier</span>
                 Koregaon Park North Main Rd
               </li>
               <li>
-                <span className="text-[#F5F3EF] block">Mumbai Studio</span>
+                <span className="text-ivory block">Mumbai Studio</span>
                 The Mill Compound, Lower Parel
               </li>
               <li>
-                <span className="text-[#F5F3EF] block">Goa & Alibaug</span>
+                <span className="text-ivory block">Goa & Alibaug</span>
                 Porvorim & Awas Coastal Labs
               </li>
             </ul>
           </div>
 
           <div>
-            <h4 className="text-[10px] font-mono uppercase tracking-widest text-[#F5F3EF] mb-4">
+            <h4 className="text-[10px] font-mono uppercase tracking-widest text-ivory mb-4">
               Media & Press
             </h4>
             <ul className="space-y-2.5">
@@ -106,7 +106,7 @@ export default function Footer() {
                   href={STUDIO_INFO.contact.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 hover:text-[#F5F3EF] transition-colors"
+                  className="flex items-center gap-1.5 hover:text-ivory transition-colors"
                 >
                   <InstagramIcon className="w-3.5 h-3.5 text-[#A08975]" />
                   <span>Instagram {STUDIO_INFO.contact.instagramHandle}</span>
@@ -117,7 +117,7 @@ export default function Footer() {
                   href={STUDIO_INFO.contact.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 hover:text-[#F5F3EF] transition-colors"
+                  className="flex items-center gap-1.5 hover:text-ivory transition-colors"
                 >
                   <LinkedInIcon className="w-3.5 h-3.5 text-[#A08975]" />
                   <span>LinkedIn Atelier</span>
@@ -133,7 +133,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-[10px] font-mono uppercase tracking-widest text-[#F5F3EF] mb-4">
+            <h4 className="text-[10px] font-mono uppercase tracking-widest text-ivory mb-4">
               Direct Contact
             </h4>
             <p className="text-[#A69E94] mb-2">{STUDIO_INFO.contact.email}</p>

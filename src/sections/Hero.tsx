@@ -1,13 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowDown } from "lucide-react";
 
 /**
  * Curated client artwork photos extracted from @kalaa_vant Instagram screenshots.
- * Used for the automatic scrolling photo strip and vivid background.
+ * Used for the automatic scrolling photo strip.
  */
 export const CLIENT_ARTWORKS = [
   {
@@ -85,71 +84,52 @@ export const CLIENT_ARTWORKS = [
 ];
 
 export default function Hero() {
-  const [activePhoto, setActivePhoto] = useState<string>("/images/slideshow-1.jpg");
-
   // Duplicate list once to ensure 100% seamless infinite continuous scrolling
   const infiniteArtworks = [...CLIENT_ARTWORKS, ...CLIENT_ARTWORKS];
 
   return (
     <section
       aria-label="Kalaa Vant Hero"
-      className="relative w-full min-h-screen flex flex-col justify-between overflow-hidden bg-[#101012] text-[#F5F3EF] pt-20 sm:pt-24 pb-6 select-none"
+      className="relative w-full min-h-screen flex flex-col justify-between overflow-hidden bg-charcoal text-ivory pt-20 sm:pt-24 pb-6 select-none"
     >
       {/* 
-        1. Full-Screen Background Photo (Vivid, Bright & Auto-Panning Animation)
-        - Clean and bright: no heavy black veil
-        - Slow subtle pan animation for dynamic life
-      */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="relative w-full h-full animate-photo-pan">
-          <Image
-            src={activePhoto}
-            alt="Kalaa Vant Client Murals & Artworks"
-            fill
-            priority
-            quality={95}
-            sizes="100vw"
-            className="object-cover object-center w-full h-full brightness-[0.88] contrast-[1.04] transition-all duration-1000"
-          />
-        </div>
-
-        {/* Soft, minimal gradients: preserves photo clarity while keeping header/footer readable */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/70 pointer-events-none" />
-      </div>
-
-      {/* 
-        2. Clean, Minimal Header Title (No Clutter, No Paragraphs Blocking the Art)
+        1. Clean, Minimal Title on a plain dark background so the artwork strip leads
       */}
       <div className="relative z-10 max-w-4xl mx-auto w-full text-center px-6 pt-10 sm:pt-14 pointer-events-none">
-        <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-[0.2em] font-light text-[#F5F3EF] uppercase drop-shadow-md">
+        <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-[0.2em] font-light text-ivory uppercase drop-shadow-md">
           KALAA VANT
         </h1>
         <p className="mt-2 text-[10px] sm:text-xs md:text-sm font-sans tracking-[0.25em] uppercase text-[#E0DCD3] drop-shadow-sm font-light">
           Bespoke Murals • Sacred Indian Art • 3D Architectural Reliefs
         </p>
+        <div className="mt-6 sm:mt-8 flex flex-wrap items-center justify-center gap-3 pointer-events-auto">
+          <Link
+            href="/#projects"
+            className="px-5 py-2.5 bg-ivory text-charcoal hover:bg-gold transition-colors text-[11px] sm:text-xs font-sans tracking-[0.2em] uppercase"
+          >
+            View Work
+          </Link>
+          <Link
+            href="/#contact"
+            className="px-5 py-2.5 border border-white/40 text-ivory hover:bg-white hover:text-charcoal transition-colors text-[11px] sm:text-xs font-sans tracking-[0.2em] uppercase"
+          >
+            Commission a Piece
+          </Link>
+        </div>
       </div>
 
       {/* 
-        3. Automatic Scrolling Photos with Smooth Infinite Animation
+        2. Automatic Scrolling Photos with Smooth Infinite Animation
         - Continuously and smoothly scrolls the client's actual artwork photos
-        - Glides from right to left automatically with plain CSS
-        - Pauses smoothly on hover so user can inspect any artwork
+        - Pauses on hover, tap or keyboard focus; static and swipeable with reduced motion
       */}
-      <div className="relative z-20 w-full my-auto py-3 overflow-hidden">
-        {/* Subtle hover instruction hint */}
-        <div className="text-center mb-2.5">
-          <span className="text-[9px] uppercase tracking-[0.28em] font-mono text-[#C4BFB6]/85 bg-black/45 px-3 py-0.5 rounded-full backdrop-blur-xs border border-white/10">
-            • Auto-Scrolling Client Works • Hover to Pause •
-          </span>
-        </div>
-
+      <div className="relative z-20 w-full my-auto py-3 overflow-hidden motion-reduce:overflow-x-auto">
         {/* Infinite Auto-Scrolling Track */}
-        <div className="auto-scroll-track gap-3.5 sm:gap-5 px-4 cursor-pointer">
+        <div className="auto-scroll-track gap-3.5 sm:gap-5 px-4">
           {infiniteArtworks.map((item, index) => (
             <div
               key={`${item.id}-${index}`}
-              onClick={() => setActivePhoto(item.src)}
-              className="group relative flex-shrink-0 w-40 sm:w-52 md:w-60 h-56 sm:h-68 md:h-76 rounded-sm overflow-hidden border border-[#B8A99A]/40 bg-[#141414] shadow-2xl transition-all duration-500 hover:scale-105 hover:border-white hover:z-30"
+              className="group relative flex-shrink-0 w-40 sm:w-52 md:w-60 h-56 sm:h-68 md:h-76 rounded-sm overflow-hidden border border-gold/40 bg-charcoal shadow-2xl transition-all duration-500 hover:scale-105 hover:border-white hover:z-30"
             >
               <Image
                 src={item.src}
@@ -161,10 +141,10 @@ export default function Hero() {
 
               {/* Minimal caption reveal on hover */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300 flex flex-col justify-end p-3">
-                <span className="text-[8px] sm:text-[9px] uppercase tracking-widest font-mono text-[#B8A99A]">
+                <span className="text-[8px] sm:text-[9px] uppercase tracking-widest font-mono text-gold">
                   {item.category}
                 </span>
-                <span className="text-xs sm:text-sm font-serif text-[#F5F3EF] truncate">
+                <span className="text-xs sm:text-sm font-serif text-ivory truncate">
                   {item.title}
                 </span>
               </div>
@@ -174,12 +154,12 @@ export default function Hero() {
       </div>
 
       {/* 
-        4. Clean Bottom Cue
+        3. Clean Bottom Cue
       */}
       <div className="relative z-10 w-full flex items-center justify-between px-6 md:px-12 text-[10px] sm:text-xs font-mono uppercase tracking-[0.25em] text-[#C4BFB6]">
         <Link
           href="/#projects"
-          className="hover:text-[#B8A99A] transition-colors flex items-center gap-1.5"
+          className="hover:text-gold transition-colors flex items-center gap-1.5"
         >
           <span>Explore Selected Works</span>
           <ArrowDown className="w-3 h-3" />
@@ -191,7 +171,7 @@ export default function Hero() {
           href="https://www.instagram.com/kalaa_vant"
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-[#B8A99A] transition-colors"
+          className="hover:text-gold transition-colors"
         >
           @kalaa_vant ↗
         </a>
