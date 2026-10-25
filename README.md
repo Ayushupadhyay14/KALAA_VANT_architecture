@@ -199,3 +199,5 @@ Adding a new architectural project requires editing **only one file**: `src/data
 
 © 2026 Studio Kalaa Vant. All rights reserved.
 Crafted for minimal, refined architectural storytelling.
+#   k a l a _ v a n t - p r o t o t y p e  
+ 
