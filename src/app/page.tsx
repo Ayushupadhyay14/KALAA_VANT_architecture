@@ -1,7 +1,7 @@
 import Preloader from "@/components/Preloader";
 import Hero from "@/sections/Hero";
 import Philosophy from "@/sections/Philosophy";
-import FeaturedProjects from "@/sections/FeaturedProjects";
+import ArtworkGallery from "@/sections/ArtworkGallery";
 import CulturalArchive from "@/sections/CulturalArchive";
 import AboutStudio from "@/sections/AboutStudio";
 import Services from "@/sections/Services";
@@ -20,8 +20,9 @@ export default function Home() {
         {/* 2. Philosophy & Manifesto with Line Reveal */}
         <Philosophy />
 
-        {/* 3. Featured Architecture Commissions */}
-        <FeaturedProjects />
+        {/* 3. Selected Works: real artwork, filterable by discipline.
+            (Previous architecture showcase: src/sections/FeaturedProjects.tsx, unused for now.) */}
+        <ArtworkGallery />
 
         {/* 4. Visual Chronicles & Cultural Archive from @kalaa_vant */}
         <CulturalArchive />

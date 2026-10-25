@@ -6,36 +6,78 @@ import { STUDIO_INFO } from "@/data/projects";
 import { ArrowUpRight, CheckCircle2, Mail, MapPin, Phone } from "lucide-react";
 import { InstagramIcon, LinkedInIcon } from "@/components/SocialIcons";
 
+// Recipient is configuration, not code. Set NEXT_PUBLIC_INQUIRY_EMAIL (e.g. in .env.local)
+// to the studio's confirmed inbox. When unset, nothing is sent and visitors are told so.
+const INQUIRY_EMAIL = process.env.NEXT_PUBLIC_INQUIRY_EMAIL?.trim() ?? "";
+
+const PROJECT_TYPES = [
+  "Painting",
+  "Mural",
+  "Sculpture",
+  "Mixed media",
+  "Commercial art commission",
+  "Not sure yet",
+];
+
+const FIELD_CLASS =
+  "w-full bg-charcoal border border-[#2B2A28] px-4 py-3 text-xs text-ivory focus:border-gold focus:outline-hidden transition-colors rounded-none placeholder:text-[#524F4B]";
+const LABEL_CLASS = "block text-[10px] font-mono uppercase tracking-widest text-[#8C7D70] mb-2";
+
 export default function Contact() {
   const [formState, setFormState] = useState({
     name: "",
     email: "",
-    phone: "",
-    projectType: "Residential Villa",
+    projectType: PROJECT_TYPES[0],
     location: "",
-    budget: "Undetermined",
+    dimensions: "",
+    timeline: "",
+    budget: "",
+    referenceLink: "",
     message: "",
   });
 
-  const [submitted, setSubmitted] = useState(false);
+  // null = form showing; "mail" = email app opened; "manual" = no recipient configured
+  const [outcome, setOutcome] = useState<null | "mail" | "manual">(null);
+  const [brief, setBrief] = useState("");
+  const [copied, setCopied] = useState(false);
 
-  // No backend exists yet: open the visitor's email app with the brief prefilled
-  // instead of showing a fake "received" state.
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const subject = `Inquiry from ${formState.name}`;
-    const body = [
+  const buildBrief = () =>
+    [
       `Name: ${formState.name}`,
       `Email: ${formState.email}`,
-      `Phone: ${formState.phone || "-"}`,
       `Project type: ${formState.projectType}`,
       `Location: ${formState.location || "-"}`,
-      `Budget: ${formState.budget}`,
+      `Approximate dimensions: ${formState.dimensions || "-"}`,
+      `Timeline: ${formState.timeline || "-"}`,
+      `Budget: ${formState.budget || "-"}`,
+      `Reference link: ${formState.referenceLink || "-"}`,
       "",
       formState.message,
     ].join("\n");
-    window.location.href = `mailto:${STUDIO_INFO.contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    setSubmitted(true);
+
+  // No backend exists: with a configured recipient, open the visitor's email app with the
+  // brief prefilled; without one, show the brief to copy. Never claim it was delivered.
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const text = buildBrief();
+    setBrief(text);
+    setCopied(false);
+    if (INQUIRY_EMAIL) {
+      const subject = `Inquiry from ${formState.name}`;
+      window.location.href = `mailto:${INQUIRY_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
+      setOutcome("mail");
+    } else {
+      setOutcome("manual");
+    }
+  };
+
+  const copyBrief = async () => {
+    try {
+      await navigator.clipboard.writeText(brief);
+      setCopied(true);
+    } catch {
+      setCopied(false);
+    }
   };
 
   return (
@@ -151,7 +193,7 @@ export default function Contact() {
 
           {/* Right Column: Minimalist Editorial Inquiry Form */}
           <div className="lg:col-span-7 bg-[#1C1B19] p-8 sm:p-12 border border-[#2B2A28]">
-            {submitted ? (
+            {outcome ? (
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -161,17 +203,45 @@ export default function Contact() {
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
                 <h3 className="font-serif text-3xl text-ivory">
-                  Almost There
+                  {outcome === "mail" ? "Almost There" : "Not Sent Yet"}
                 </h3>
-                <p className="text-xs font-sans text-[#A69E94] max-w-md leading-relaxed">
-                  Your email app should now open with your inquiry ready to send. Please press send there. Nothing is delivered until you do. If it did not open, email us directly at{" "}
-                  <a href={`mailto:${STUDIO_INFO.contact.email}`} className="text-gold underline">
-                    {STUDIO_INFO.contact.email}
-                  </a>
-                  .
-                </p>
+                {outcome === "mail" ? (
+                  <p className="text-xs font-sans text-[#A69E94] max-w-md leading-relaxed">
+                    Your email app should now open with your inquiry ready to send. Please press send there. Nothing is delivered until you do.
+                  </p>
+                ) : (
+                  <>
+                    <p className="text-xs font-sans text-[#A69E94] max-w-md leading-relaxed">
+                      Online sending is not set up yet, so your inquiry has not been delivered. Copy your brief below and send it to us by direct message on Instagram.
+                    </p>
+                    <textarea
+                      readOnly
+                      value={brief}
+                      rows={8}
+                      className={`${FIELD_CLASS} max-w-md text-left`}
+                      aria-label="Your inquiry brief"
+                    />
+                    <div className="flex flex-wrap items-center justify-center gap-3">
+                      <button
+                        type="button"
+                        onClick={copyBrief}
+                        className="px-5 py-2.5 bg-ivory text-charcoal hover:bg-gold transition-colors text-xs font-mono uppercase tracking-widest"
+                      >
+                        {copied ? "Copied" : "Copy Brief"}
+                      </button>
+                      <a
+                        href={STUDIO_INFO.contact.instagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-5 py-2.5 border border-[#2B2A28] text-gold hover:bg-[#2B2A28] transition-colors text-xs font-mono uppercase tracking-widest"
+                      >
+                        Open Instagram
+                      </a>
+                    </div>
+                  </>
+                )}
                 <button
-                  onClick={() => setSubmitted(false)}
+                  onClick={() => setOutcome(null)}
                   className="mt-6 px-6 py-2.5 border border-[#2B2A28] text-xs font-mono uppercase tracking-widest text-gold hover:bg-[#2B2A28] transition-colors"
                 >
                   Back to Form
@@ -215,63 +285,110 @@ export default function Contact() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-[10px] font-mono uppercase tracking-widest text-[#8C7D70] mb-2">
-                      Project Typology
+                    <label htmlFor="inq-type" className={LABEL_CLASS}>
+                      Project Type
                     </label>
                     <select
+                      id="inq-type"
                       value={formState.projectType}
                       onChange={(e) => setFormState({ ...formState, projectType: e.target.value })}
-                      className="w-full bg-charcoal border border-[#2B2A28] px-4 py-3 text-xs text-ivory focus:border-gold focus:outline-hidden transition-colors rounded-none"
+                      className={FIELD_CLASS}
                     >
-                      <option value="Residential Villa">Bespoke Residential Villa</option>
-                      <option value="Coastal Estate">Coastal / Beach Retreat (Alibaug/Goa)</option>
-                      <option value="Minimalist Penthouse">Urban Penthouse & Interiors</option>
-                      <option value="Sustainable Earth Compound">Earth / Off-grid Sustainable Compound</option>
-                      <option value="Cultural Atelier / Commercial">Atelier / Commercial Pavilion</option>
+                      {PROJECT_TYPES.map((t) => (
+                        <option key={t} value={t}>
+                          {t}
+                        </option>
+                      ))}
                     </select>
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-mono uppercase tracking-widest text-[#8C7D70] mb-2">
-                      Site Location / City
+                    <label htmlFor="inq-location" className={LABEL_CLASS}>
+                      Location / City (optional)
                     </label>
                     <input
+                      id="inq-location"
                       type="text"
                       value={formState.location}
                       onChange={(e) => setFormState({ ...formState, location: e.target.value })}
-                      placeholder="e.g. Alibaug / Lonavala / Pune / Mumbai"
-                      className="w-full bg-charcoal border border-[#2B2A28] px-4 py-3 text-xs text-ivory focus:border-gold focus:outline-hidden transition-colors rounded-none placeholder:text-[#524F4B]"
+                      placeholder="Where will the work be placed?"
+                      className={FIELD_CLASS}
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="inq-dimensions" className={LABEL_CLASS}>
+                      Approximate Dimensions (optional)
+                    </label>
+                    <input
+                      id="inq-dimensions"
+                      type="text"
+                      value={formState.dimensions}
+                      onChange={(e) => setFormState({ ...formState, dimensions: e.target.value })}
+                      placeholder="e.g. wall 10 ft × 8 ft"
+                      className={FIELD_CLASS}
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="inq-timeline" className={LABEL_CLASS}>
+                      Timeline (optional)
+                    </label>
+                    <input
+                      id="inq-timeline"
+                      type="text"
+                      value={formState.timeline}
+                      onChange={(e) => setFormState({ ...formState, timeline: e.target.value })}
+                      placeholder="e.g. within 2 months"
+                      className={FIELD_CLASS}
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="inq-budget" className={LABEL_CLASS}>
+                      Budget (optional)
+                    </label>
+                    <input
+                      id="inq-budget"
+                      type="text"
+                      value={formState.budget}
+                      onChange={(e) => setFormState({ ...formState, budget: e.target.value })}
+                      placeholder="Leave blank to discuss"
+                      className={FIELD_CLASS}
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="inq-reference" className={LABEL_CLASS}>
+                      Reference Link (optional)
+                    </label>
+                    <input
+                      id="inq-reference"
+                      type="url"
+                      value={formState.referenceLink}
+                      onChange={(e) => setFormState({ ...formState, referenceLink: e.target.value })}
+                      placeholder="Link to inspiration images"
+                      className={FIELD_CLASS}
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-mono uppercase tracking-widest text-[#8C7D70] mb-2">
-                    Estimated Construction Budget
-                  </label>
-                  <select
-                    value={formState.budget}
-                    onChange={(e) => setFormState({ ...formState, budget: e.target.value })}
-                    className="w-full bg-charcoal border border-[#2B2A28] px-4 py-3 text-xs text-ivory focus:border-gold focus:outline-hidden transition-colors rounded-none"
-                  >
-                    <option value="₹3 Cr - ₹7 Cr">₹3 Cr – ₹7 Cr (~$350K – $850K)</option>
-                    <option value="₹7 Cr - ₹15 Cr">₹7 Cr – ₹15 Cr (~$850K – $1.8M)</option>
-                    <option value="₹15 Cr+">₹15 Cr+ (~$1.8M+)</option>
-                    <option value="Undetermined">To Be Discussed</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-[10px] font-mono uppercase tracking-widest text-[#8C7D70] mb-2">
-                    Project Vision & Spatial Requirements *
+                  <label htmlFor="inq-message" className={LABEL_CLASS}>
+                    About Your Project *
                   </label>
                   <textarea
+                    id="inq-message"
                     required
                     rows={4}
                     value={formState.message}
                     onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                    placeholder="Tell us about the site topography, your lifestyle aspirations, family requirements, and preferred timeline..."
-                    className="w-full bg-charcoal border border-[#2B2A28] px-4 py-3 text-xs text-ivory focus:border-gold focus:outline-hidden transition-colors rounded-none placeholder:text-[#524F4B]"
+                    placeholder="Describe what you have in mind: the space, style, colours or themes you like."
+                    className={FIELD_CLASS}
                   />
                 </div>
 
@@ -280,7 +397,7 @@ export default function Contact() {
                   className="w-full py-4 bg-ivory text-charcoal hover:bg-gold transition-all duration-300 font-sans text-xs tracking-[0.25em] uppercase font-medium flex items-center justify-center gap-2 rounded-none"
                   data-cursor="link"
                 >
-                  <span>Transmit Architectural Inquiry</span>
+                  <span>Send Inquiry</span>
                   <ArrowUpRight className="w-4 h-4" />
                 </button>
               </form>
