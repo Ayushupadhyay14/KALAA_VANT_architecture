@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { STUDIO_INFO, PROJECTS } from "@/data/projects";
+import { STUDIO_INFO, PROJECTS, SHOW_UNVERIFIED } from "@/data/projects";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 
 export default function Header() {
@@ -191,7 +191,9 @@ export default function Header() {
                 </div>
 
                 <div className="mt-12 flex flex-col gap-4 text-xs font-sans text-[#A69E94]">
-                  <div>
+                  {SHOW_UNVERIFIED && (
+<>
+<div>
                     <p className="font-medium text-ivory">Atelier Inquiries</p>
                     <a
                       href={`mailto:${STUDIO_INFO.contact.email}`}
@@ -200,6 +202,8 @@ export default function Header() {
                       {STUDIO_INFO.contact.email}
                     </a>
                   </div>
+</>
+)}
                   <div className="flex items-center gap-6 pt-2">
                     <a
                       href={STUDIO_INFO.contact.instagram}
@@ -209,7 +213,8 @@ export default function Header() {
                     >
                       Instagram ({STUDIO_INFO.contact.instagramHandle})
                     </a>
-                    <a
+                    {SHOW_UNVERIFIED && (
+<a
                       href={STUDIO_INFO.contact.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -217,6 +222,7 @@ export default function Header() {
                     >
                       LinkedIn
                     </a>
+)}
                   </div>
                 </div>
               </div>

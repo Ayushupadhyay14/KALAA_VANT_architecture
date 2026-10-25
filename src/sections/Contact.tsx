@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { STUDIO_INFO } from "@/data/projects";
+import { SHOW_UNVERIFIED, STUDIO_INFO } from "@/data/projects";
 import { ArrowUpRight, CheckCircle2, Mail, MapPin, Phone } from "lucide-react";
 import { InstagramIcon, LinkedInIcon } from "@/components/SocialIcons";
 
@@ -104,14 +104,15 @@ export default function Contact() {
                 // COMMISSION A WORK
               </span>
               <h2 className="font-serif text-4xl sm:text-5xl font-light text-ivory leading-tight mb-6">
-                Let us begin an architectural conversation.
+                Let us begin a conversation about your space.
               </h2>
               <p className="text-xs font-sans text-[#A69E94] leading-relaxed mb-10">
-                Whether you envision a mountain sanctuary embedded in basalt or an urban penthouse overlooking the sea, our atelier is ready to listen.
+                Tell us about the wall, room or idea you have in mind. Use the form, or message us on Instagram.
               </p>
 
               {/* Contact Directs */}
-              <div className="space-y-6 pt-4 border-t border-[#2B2A28]">
+              {SHOW_UNVERIFIED && (
+<div className="space-y-6 pt-4 border-t border-[#2B2A28]">
                 <div className="flex items-start gap-4">
                   <Mail className="w-4 h-4 text-[#A08975] mt-1 shrink-0" />
                   <div>
@@ -142,9 +143,11 @@ export default function Contact() {
                   </div>
                 </div>
               </div>
+)}
 
               {/* Studios */}
-              <div className="mt-10 space-y-4">
+              {SHOW_UNVERIFIED && (
+<div className="mt-10 space-y-4">
                 <span className="text-[10px] font-mono uppercase tracking-widest text-[#8C7D70] block">
                   Studio Locations
                 </span>
@@ -159,6 +162,7 @@ export default function Contact() {
                   </div>
                 ))}
               </div>
+)}
             </div>
 
             {/* Social Links */}
@@ -177,7 +181,8 @@ export default function Contact() {
                   <InstagramIcon className="w-4 h-4 text-[#A08975]" />
                   <span>Instagram ({STUDIO_INFO.contact.instagramHandle})</span>
                 </a>
-                <a
+                {SHOW_UNVERIFIED && (
+<a
                   href={STUDIO_INFO.contact.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -187,6 +192,7 @@ export default function Contact() {
                   <LinkedInIcon className="w-4 h-4 text-[#A08975]" />
                   <span>LinkedIn</span>
                 </a>
+)}
               </div>
             </div>
           </div>

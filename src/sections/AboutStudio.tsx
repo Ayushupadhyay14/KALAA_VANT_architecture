@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
-import { STUDIO_INFO } from "@/data/projects";
+import { SHOW_UNVERIFIED, STUDIO_INFO } from "@/data/projects";
 import { Award, CheckCircle2, MapPin } from "lucide-react";
 
 export default function AboutStudio() {
@@ -40,12 +40,14 @@ export default function AboutStudio() {
               <p>
                 In the Sanskrit and Marathi lexicons, <strong className="text-charcoal">Kalaa (कला)</strong> signifies art, divine proportion, and the 64 classical disciplines of creative expression. <strong className="text-charcoal">Vant (वंत)</strong> denotes the one who embodies and masters that essence.
               </p>
+              {SHOW_UNVERIFIED && (
               <p>
                 Studio Kalaa Vant was established to rescue contemporary Indian architecture from homogeneous glass facades and disconnected international trends. We ground each structure in its indigenous climate, working side by side with traditional stonemasons, carpenters, and hydrologists.
               </p>
+              )}
             </div>
 
-            {/* Studio Locations */}
+            {SHOW_UNVERIFIED && (
             <div className="mt-10 pt-8 border-t border-charcoal/10 space-y-4">
               <span className="text-[10px] font-mono tracking-widest uppercase text-charcoal-muted">
                 Active Atelier Offices:
@@ -62,18 +64,20 @@ export default function AboutStudio() {
                 ))}
               </div>
             </div>
+            )}
           </div>
 
-          <div className="lg:col-span-7 relative">
+          <div className="lg:col-span-7 relative lg:max-w-[456px] lg:justify-self-end w-full">
             <div className="relative w-full h-[400px] sm:h-[500px] overflow-hidden border border-charcoal/15">
               <Image
                 src="/images/kalaavant/artists-sculpting-circles.jpg"
-                alt="Studio Kalaa Vant Architectural Atelier Workspace"
+                alt="Relief artwork being sculpted on a wall by KALAVANT artists"
                 fill
                 className="object-cover object-center grayscale contrast-125"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent" />
+              {SHOW_UNVERIFIED && (
               <div className="absolute bottom-6 left-6 right-6 p-4 bg-charcoal/90 backdrop-blur-md border border-[#2B2A28]">
                 <p className="font-serif text-lg text-ivory">
                   &quot;Architecture is stone transformed into silent music.&quot;
@@ -82,11 +86,12 @@ export default function AboutStudio() {
                   Material Laboratory • Pune, India
                 </span>
               </div>
+              )}
             </div>
           </div>
         </div>
 
-        {/* Team Principals Grid */}
+        {SHOW_UNVERIFIED && (
         <div className="mb-32">
           <div className="flex items-end justify-between pb-6 border-b border-charcoal/15 mb-12">
             <div>
@@ -134,8 +139,9 @@ export default function AboutStudio() {
             ))}
           </div>
         </div>
+        )}
 
-        {/* Key Milestones & Awards Timeline (Draws in as you scroll) */}
+        {SHOW_UNVERIFIED && (
         <div>
           <div className="flex items-end justify-between pb-6 border-b border-charcoal/15 mb-14">
             <div>
@@ -179,6 +185,7 @@ export default function AboutStudio() {
             ))}
           </div>
         </div>
+        )}
       </div>
     </section>
   );

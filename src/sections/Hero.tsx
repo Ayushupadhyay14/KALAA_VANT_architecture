@@ -164,9 +164,6 @@ export default function Hero() {
           <span>Explore Selected Works</span>
           <ArrowDown className="w-3 h-3" />
         </Link>
-        <span className="hidden sm:inline text-[#8F877C]">
-          Mumbai • Pune • Goa
-        </span>
         <a
           href="https://www.instagram.com/kalaa_vant"
           target="_blank"

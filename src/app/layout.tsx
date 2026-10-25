@@ -4,7 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
-import { STUDIO_INFO } from "@/data/projects";
+import { SITE_URL, STUDIO_INFO } from "@/data/projects";
 
 const serifFont = Cormorant_Garamond({
   variable: "--font-serif",
@@ -21,36 +21,25 @@ const sansFont = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://kalaavant.com"),
-  title: "Studio Kalaa Vant | Contextual Architecture & Spatial Craft",
+  metadataBase: new URL(SITE_URL),
+  title: "KALAA VANT | Art & Murals Atelier",
   description:
-    "An architectural and spatial design atelier practicing contextual brutalism, sustainable luxury, and earth-responsive architecture across Mumbai, Pune, Alibaug, and Goa.",
-  keywords: [
-    "Kalaa Vant",
-    "Studio Kalaa Vant",
-    "Kalaavant Architecture",
-    "Architect Mumbai",
-    "Architect Pune",
-    "Alibaug Villa Architecture",
-    "Contextual Brutalism India",
-    "Sustainable Architecture",
-    "Rammed Earth Architects",
-    "Luxury Residential Architecture India",
-  ],
-  authors: [{ name: "Studio Kalaa Vant", url: "https://www.instagram.com/kalaa_vant" }],
-  creator: "Studio Kalaa Vant",
+    "KALAVANT is a multidisciplinary art business creating paintings, sculptures, murals, mixed media and commercial art commissions.",
+  keywords: ["Kalaa Vant", "KALAVANT", "murals", "paintings", "sculpture", "mixed media", "art commissions"],
+  authors: [{ name: "KALAVANT", url: "https://www.instagram.com/kalaa_vant" }],
+  creator: "KALAVANT",
   openGraph: {
-    title: "Studio Kalaa Vant | Contextual Architecture & Spatial Craft",
+    title: "KALAA VANT | Art & Murals Atelier",
     description:
-      "Architecture born from the land, sculpted by light, enduring in silence. Minimalist, refined, and editorial.",
-    url: "https://kalaavant.com",
-    siteName: "Studio Kalaa Vant",
+      "Paintings, sculptures, murals, mixed media and commercial art commissions.",
+    url: SITE_URL,
+    siteName: "KALAVANT",
     images: [
       {
         url: "/images/slideshow-1.jpg",
         width: 1800,
         height: 1000,
-        alt: "Studio Kalaa Vant Architecture",
+        alt: "KALAVANT artwork",
       },
     ],
     locale: "en_US",
@@ -58,8 +47,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Studio Kalaa Vant | Architecture Atelier",
-    description: "Architecture born from the land, sculpted by light, enduring in silence.",
+    title: "KALAA VANT | Art & Murals Atelier",
+    description: "Paintings, sculptures, murals, mixed media and commercial art commissions.",
     images: ["/images/slideshow-1.jpg"],
   },
   robots: {
@@ -73,33 +62,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Structured Data Schema for Architect / ArchitectureFirm
+  // Structured data: only confirmed facts (name and Instagram). Phone, email, address and
+  // team stay out until the owner verifies them (KV-03).
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "ArchitecturalFirm",
-    name: STUDIO_INFO.fullName,
+    "@type": "Organization",
+    name: "KALAVANT",
     alternateName: "Kalaa Vant",
-    url: "https://kalaavant.com",
-    logo: "https://kalaavant.com/images/slideshow-1.jpg",
-    description: STUDIO_INFO.tagline,
-    telephone: STUDIO_INFO.contact.phone,
-    email: STUDIO_INFO.contact.email,
-    sameAs: [
-      STUDIO_INFO.contact.instagram,
-      STUDIO_INFO.contact.linkedin,
-    ],
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "Koregaon Park North Main Road",
-      addressLocality: "Pune",
-      addressRegion: "Maharashtra",
-      addressCountry: "IN",
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: "18.5362",
-      longitude: "73.8958",
-    },
+    url: SITE_URL,
+    description: "Paintings, sculptures, murals, mixed media and commercial art commissions.",
+    sameAs: [STUDIO_INFO.contact.instagram],
   };
 
   return (

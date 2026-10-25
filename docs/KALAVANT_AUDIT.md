@@ -267,3 +267,43 @@ Planning only. No application code was changed for this section. It builds on BW
 | `npm run build` / `tsc --noEmit` | Pass. |
 | `npm run lint` | 13 errors, 8 warnings, identical to the baseline at the start (none in the new gallery). |
 | Not tested | Real touch devices, Lighthouse/performance, screen-reader output. |
+
+---
+
+## Live-site audit and Fix 7 — stop publishing unverified claims (2026-10-25)
+Live site: https://kalaa-vant-architecture.vercel.app (from the GitHub repo homepage). It served the latest commit (`1f7a6c3`).
+
+### Findings against the live site
+| Priority item | Finding on live | Status |
+|---|---|---|
+| Loading screen stuck at 0% | **Not reproducible.** Real-time Chrome run (CDP, 375 px mobile, fresh profile, visible page): progress 6 % at 0.8 s, overlay gone at ~3 s, no console errors. Earlier "stuck" captures were a hidden browser pane (animation frames paused) and headless virtual time. The screen still blocks the first view for about 3 s per session (KV-05). | Closed as artefact; KV-05 stays open |
+| Blurry artwork | Home images measured at 1440 and 375 px against source file widths: hero strip, gallery and archive are never enlarged (worst 0.88× at DPR 1). **Studio photo was 1.55× enlarged** (456 px file shown 708 px wide). On 2× phone screens the 456 px sources are inherently soft. | Studio photo fixed; real fix is still original photos (VD-01) |
+| Art vs architecture positioning | Live `<title>`, description, OG, JSON-LD (`ArchitecturalFirm`) and keywords said "Contextual Architecture … Mumbai, Pune, Alibaug, Goa" | Fixed (metadata); body copy partly open, see below |
+| Unverified business claims | Live page text and structured data published: invented team (Radhika Kulkarni, Vikramaditya Shinde, with artwork photos as their portraits), awards/milestones, press ("Architectural Digest India (Feature 2024)", "El Croquis"), stats (14+ years, 48+ works), three office addresses, phone, email, LinkedIn, "Commissions 2025/2026 … open", and a made-up quote. Phone, address and coordinates were also in Google-readable JSON-LD. | Hidden (see Fix 7) |
+| Enquiry delivery | `NEXT_PUBLIC_INQUIRY_EMAIL` is not set on the deployment, so the live form shows "Not Sent Yet" with a copy-brief and Instagram fallback. No lead is lost silently, but nothing reaches an inbox. | Open: owner config |
+| Canonical/sitemap | Sitemap, robots, canonical and OG pointed to `kalaavant.com`, a domain nobody confirmed; the site lives on `vercel.app`. | Fixed (`SITE_URL`) |
+
+### Fix 7 (local, **not committed or pushed**)
+- `src/data/projects.ts`: new `SHOW_UNVERIFIED = false` switch (unverified data stays in the file) and `SITE_URL` (live URL, overridable with `NEXT_PUBLIC_SITE_URL`).
+- Hidden while the switch is false: Studio section offices, second "architecture" paragraph, photo quote overlay, Principals, Milestones; Philosophy stats; Contact email, phone, studio locations and LinkedIn; Footer locations, LinkedIn, press, direct contact and "Commissions open" claim, "Principals & Team" link; Header menu email and LinkedIn; Hero "Mumbai • Pune • Goa".
+- Text: title/description/OG/Twitter/keywords/JSON-LD now use only the confirmed art-business wording (JSON-LD is a plain `Organization` with name and Instagram); Contact heading and intro rewritten without architecture; footer "Architectural Services" → "Services" and tagline → "Art & Murals Atelier"; Studio photo capped at its real width with a description-based alt text.
+- Changed files: `src/data/projects.ts`, `src/app/layout.tsx`, `src/app/robots.ts`, `src/app/sitemap.ts`, `src/components/Footer.tsx`, `src/components/Header.tsx`, `src/sections/AboutStudio.tsx`, `src/sections/Contact.tsx`, `src/sections/Hero.tsx`, `src/sections/Philosophy.tsx`.
+
+### Verification
+| Check | Result |
+|---|---|
+| `tsc --noEmit`, `npm run build` | Pass |
+| `npm run lint` | 13 errors, 8 warnings, same as baseline |
+| Local production build, text scan | Radhika, Vikramaditya, phone, email, addresses, press, "14+", "Selective scheduling", LinkedIn: 0 occurrences (live: 1–5 each). Title, description and JSON-LD are art wording. |
+| Real Chrome, mobile, fresh profile | Loading screen finished in ~3 s, no console errors |
+| Image measurement | Studio photo now 1.0× (was 1.55×); nothing else enlarged |
+| Screenshots (desktop) | Studio, Contact and Footer render cleanly with the blocks hidden |
+| Not tested | The deployed result (not pushed), real phones, Lighthouse, screen readers |
+
+### Still unresolved (needs owner decisions or originals)
+1. Original high-resolution photos (VD-01); Instagram badges remain on the photos.
+2. Set `NEXT_PUBLIC_INQUIRY_EMAIL` on the host with a confirmed inbox.
+3. Remaining architecture copy: Philosophy manifesto and "Contextual Materiality", the whole Services section ("Contextual Architecture"), Cultural Archive (mentions founder Akash Kapare and "our architecture"), the project detail pages and their metadata (Studio Kalaa Vant Architecture, fabricated clients and quotes), Footer "Silence In Stone", Header/Footer "Studio Kalaa Vant". Need confirmed services, founder and positioning (Q1–Q4).
+4. OG image `slideshow-1.jpg` is a screenshot of an Instagram grid.
+5. Custom domain, if any, to replace the vercel.app address.
+6. Whether to replace the 3 s intro (KV-05).

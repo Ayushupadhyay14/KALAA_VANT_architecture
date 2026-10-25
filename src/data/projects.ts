@@ -676,6 +676,16 @@ export const CULTURAL_STORIES: CulturalStory[] = [
   },
 ];
 
+/**
+ * The owner has not confirmed the studio offices, phone, email, team, awards, press, stats or
+ * LinkedIn below (see docs/KALAVANT_AUDIT.md KV-03). They stay in this file but are not shown
+ * or published until this is set to true after the owner verifies them.
+ */
+export const SHOW_UNVERIFIED = false;
+
+/** Public site address (the live deployment). Override with NEXT_PUBLIC_SITE_URL for a custom domain. */
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://kalaa-vant-architecture.vercel.app";
+
 export const STUDIO_INFO = {
   name: "KALAA VANT",
   fullName: "Studio Kalaa Vant",

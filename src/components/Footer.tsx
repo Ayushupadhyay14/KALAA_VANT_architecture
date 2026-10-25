@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ArrowUp } from "lucide-react";
 import { InstagramIcon, LinkedInIcon } from "@/components/SocialIcons";
-import { STUDIO_INFO } from "@/data/projects";
+import { SHOW_UNVERIFIED, STUDIO_INFO } from "@/data/projects";
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -58,14 +58,16 @@ export default function Footer() {
                   Studio Ethos
                 </Link>
               </li>
-              <li>
+              {SHOW_UNVERIFIED && (
+<li>
                 <Link href="/#studio" className="hover:text-ivory transition-colors">
                   Principals & Team
                 </Link>
               </li>
+)}
               <li>
                 <Link href="/#services" className="hover:text-ivory transition-colors">
-                  Architectural Services
+                  Services
                 </Link>
               </li>
               <li>
@@ -76,7 +78,9 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div>
+          {SHOW_UNVERIFIED && (
+<>
+<div>
             <h4 className="text-[10px] font-mono uppercase tracking-widest text-ivory mb-4">
               Locations
             </h4>
@@ -95,6 +99,8 @@ export default function Footer() {
               </li>
             </ul>
           </div>
+</>
+)}
 
           <div>
             <h4 className="text-[10px] font-mono uppercase tracking-widest text-ivory mb-4">
@@ -112,7 +118,9 @@ export default function Footer() {
                   <span>Instagram {STUDIO_INFO.contact.instagramHandle}</span>
                 </a>
               </li>
-              <li>
+              {SHOW_UNVERIFIED && (
+<>
+<li>
                 <a
                   href={STUDIO_INFO.contact.linkedin}
                   target="_blank"
@@ -123,16 +131,24 @@ export default function Footer() {
                   <span>LinkedIn Atelier</span>
                 </a>
               </li>
-              <li>
+</>
+)}
+              {SHOW_UNVERIFIED && (
+<>
+<li>
                 <span className="text-[#736B63] block">Architectural Digest India (Feature 2024)</span>
               </li>
               <li>
                 <span className="text-[#736B63] block">El Croquis South Asia (Monograph)</span>
               </li>
+</>
+)}
             </ul>
           </div>
 
-          <div>
+          {SHOW_UNVERIFIED && (
+<>
+<div>
             <h4 className="text-[10px] font-mono uppercase tracking-widest text-ivory mb-4">
               Direct Contact
             </h4>
@@ -145,12 +161,14 @@ export default function Footer() {
               <span className="text-[11px] text-[#C4BFB6]">Selective scheduling open for residential works.</span>
             </div>
           </div>
+</>
+)}
         </div>
 
         {/* Bottom Colophon */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono tracking-widest text-[#6E665C]">
           <span>© 2026 STUDIO KALAA VANT. ALL RIGHTS RESERVED.</span>
-          <span className="mt-2 sm:mt-0">CRAFTED FOR MINIMALIST TIMELESS ARCHITECTURE</span>
+          <span className="mt-2 sm:mt-0">Art &amp; Murals Atelier</span>
         </div>
       </div>
     </footer>

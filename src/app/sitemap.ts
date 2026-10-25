@@ -1,8 +1,8 @@
 import { MetadataRoute } from "next";
-import { PROJECTS } from "@/data/projects";
+import { PROJECTS, SITE_URL } from "@/data/projects";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://kalaavant.com";
+  const baseUrl = SITE_URL;
 
   const projectUrls = PROJECTS.map((project) => ({
     url: `${baseUrl}/projects/${project.slug}`,

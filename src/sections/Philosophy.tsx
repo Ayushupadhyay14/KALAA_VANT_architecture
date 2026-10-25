@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { STUDIO_INFO } from "@/data/projects";
+import { SHOW_UNVERIFIED, STUDIO_INFO } from "@/data/projects";
 
 export default function Philosophy() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -134,6 +134,7 @@ export default function Philosophy() {
         </div>
 
         {/* Numerical Studio Accomplishments */}
+        {SHOW_UNVERIFIED && (
         <div className="mt-24 grid grid-cols-2 lg:grid-cols-4 gap-8 py-12 px-8 bg-charcoal text-ivory">
           {STUDIO_INFO.stats.map((stat, idx) => (
             <div key={idx} className="flex flex-col">
@@ -146,6 +147,7 @@ export default function Philosophy() {
             </div>
           ))}
         </div>
+        )}
       </div>
     </section>
   );
