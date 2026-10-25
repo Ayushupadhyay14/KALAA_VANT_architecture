@@ -230,3 +230,40 @@ Planning only. No application code was changed for this section. It builds on BW
 2. Answer Q1–Q4, then do opportunity 2.
 3. Send photos and Q5 answers, then do opportunity 3 (with VD-01 and VD-02).
 4. Revisit admin, CRM or payments only after real enquiry volume shows a need.
+
+---
+
+## Fix 5 — Enquiry form: art brief, no hard-coded recipient (2026-10-25)
+**Services check against this audit:** the old project-type options (villa, coastal estate, penthouse, earth compound, atelier/commercial pavilion) and the crore budget bands were unconfirmed architecture assumptions (KV-02, BW-01), so they were removed. New options use only the five disciplines you confirmed: Painting, Mural, Sculpture, Mixed media, Commercial art commission, plus "Not sure yet". The tagline's "architectural reliefs" is not in the confirmed list and was not added.
+**Form now collects:** name*, email*, project type, location, approximate dimensions, timeline, budget (free text, no invented ranges), reference link, and project description*. Everything marked optional is optional. Fields now have `htmlFor` labels.
+**Submission mechanism (no backend exists):**
+- Recipient comes from `NEXT_PUBLIC_INQUIRY_EMAIL` (not in code). If set: the visitor's email app opens prefilled and the screen says nothing is delivered until they press send.
+- If not set (the current state): nothing is sent. The screen says "Not Sent Yet", shows the brief to copy, and links to Instagram for a direct message. The site never claims delivery.
+- Reference images: a `mailto:` cannot carry attachments, so only a reference link is supported. Real uploads need a backend or form service.
+**Changed files:** `src/sections/Contact.tsx` only. No dependencies added.
+**Verification:** `npm run build` passes. `npm run lint`: 13 errors and 8 warnings, same as before; the two errors in `Contact.tsx` are the existing `jsx-no-comment-textnodes` ones. Browser (dev server): required-field check blocks an empty form; brief text contains every field; with no env var the "Not Sent Yet" screen with Copy Brief and Open Instagram appears; with a throwaway test address set, the "Almost There" screen appears. Not tested: the mailto draft in a real mail client, the Copy Brief clipboard action, mobile layout of the new fields, and any real delivery. No automated tests exist.
+**Remaining configuration (owner):**
+1. Provide the confirmed inbox and set `NEXT_PUBLIC_INQUIRY_EMAIL` in the host's environment (and `.env.local` for local use; `.env*` is git-ignored). It is public by design, since it ends up in the page.
+2. The left column of the Contact section and the Footer/Header still show `STUDIO_INFO.contact.email` and the phone number, which remain unconfirmed (KV-03).
+3. Decide whether to move to a form service for real delivery and image uploads.
+
+## Fix 6 — "Selected Works" gallery of real artwork (2026-10-25)
+**Why:** the home page's main showcase was "Featured Architecture", built on photoreal architecture images whose origin is unconfirmed (VD-02), while the real murals, paintings and reliefs were only in the hero strip.
+**Change:** new `src/sections/ArtworkGallery.tsx` replaces `FeaturedProjects` on the home page (same `id="projects"`, so the hero button, header and footer links still work). It shows 23 of the 24 photos in `public/images/kalaavant/` in an uncropped editorial masonry grid on ivory, with an editorial serif headline, gold hairline, discipline filter (All / Murals / Paintings / Reliefs & Sculpture / Process), a "Commission a piece" link and an Instagram link. Captions only describe what each photo shows; no places, years, sizes, clients or invented titles. The filter buttons use `aria-pressed`. `festival-architectural-decor.jpg` was left out (video frame of event decor, not clearly the studio's art). `FeaturedProjects.tsx`, the project pages and the Archive section are untouched; the architecture showcase is simply no longer on the home page (one-line revert in `src/app/page.tsx`).
+**Blur:** no higher-resolution originals exist on this machine (the source photos are ~456 px wide Instagram screenshots), so blur cannot be truly fixed. Images are shown at about their native width and never cropped or enlarged. The photos still carry Instagram badges (VD-01). Sending the originals remains the real fix.
+**Changed files:** `src/sections/ArtworkGallery.tsx` (new), `src/app/page.tsx`.
+**Verification:** `npm run build` passes; `npm run lint` unchanged (13 errors, 8 warnings). Browser (dev server): the gallery renders, all images load, the Paintings filter shows 6 items and marks the button pressed, no horizontal overflow at 375 px. Not verified: the mobile gallery visually (the loading screen was still showing in that capture, so check that the loading screen finishes on phones), the other filters, keyboard focus order, and performance (no Lighthouse run).
+**Not done (needs owner input):** original photos (VD-01), removing or keeping the architecture imagery in the Archive and project pages (VD-02), formal artwork titles, sizes and places, a lightbox for larger views (would enlarge 456 px images and blur), and a cinematic full-bleed hero (needs high-resolution images).
+
+## Review of Fix 6 gallery before commit (2026-10-25)
+| Check | Result |
+|---|---|
+| Mobile loading screen "stuck at 0%" | **Not an app bug; test-environment artefact.** The pane was hidden (`document.visibilityState === "hidden"`), which pauses animation frames. With a fresh session on a 375 px viewport, progress ran 0 → 100 % within 1 s. The overlay's exit animation (framer-motion) only completes when the page is visible; on a visible desktop tab the overlay was gone after load. Not confirmed: the exit animation finishing on a visible mobile viewport (could not make the pane visible during the mobile test). |
+| Filters (All / Murals / Paintings / Reliefs & Sculpture / Process) | Pass. Counts 23 / 12 / 6 / 3 / 2 (sum 23); every shown caption matches the active discipline; exactly one button has `aria-pressed="true"`. CSS-uppercase labels (rendered "PAINTINGS" etc.) checked with `textContent`, not `innerText`. |
+| Keyboard | Pass. Tab moves between filters, Enter and Space both activate, focus stays on the button, default focus ring is visible (`:focus-visible` true). Gallery images are non-interactive, so no extra tab stops. |
+| Responsive layout | Pass: 2 columns at 375 px, 3 at 768 px, 4 at 1440 px; no horizontal overflow at any of them. |
+| Sharpness | Server returns the real file (456 px, or a 384 px downscale); images render at about 160 / 230 / 300 px wide, never enlarged. (`naturalWidth` is unreliable with `srcset`, so a first upscale reading of 1.2–2.3× was invalid.) No high-resolution images were created or implied. |
+| Console errors | None on `/`. Image requests: all 200/304. |
+| `npm run build` / `tsc --noEmit` | Pass. |
+| `npm run lint` | 13 errors, 8 warnings, identical to the baseline at the start (none in the new gallery). |
+| Not tested | Real touch devices, Lighthouse/performance, screen-reader output. |
